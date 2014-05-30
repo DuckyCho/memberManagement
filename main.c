@@ -36,6 +36,7 @@ int main(void)
 			break;
 		case (5) :
 			system("cls");
+			userInput = saveData(&RP, leafNull);
 			break;
 		case (6) :
 			system("cls");

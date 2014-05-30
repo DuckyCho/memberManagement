@@ -52,7 +52,7 @@ void deleteNode_step4(member *, rootPointer *, member *);
 
 
 /* 1. 회원명단 보기 */
-void readTree(member *, member *);
+void readTree(member *, member *, void(*)(member*));
 int printList(member *, member*);
 
 /* 2. 회원 등록하기 */
@@ -76,9 +76,13 @@ int findByName(rootPointer RP, member * leafNull);
 member* searchName(char* name, member * compare, member * leafNull, member* rootNode, member** searchPerson);
 member* searchId(int id, member * compare, member * leafNull, member** thisMan);
 
+/* 6. 저장하기*/
+int saveData(rootPointer *, member *);
+void writeDataToTxt(member * );
 
 /* 8. credit 보기 */
 int credit(void);
+
 
 
 /* 0.메인 함수 */

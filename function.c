@@ -1,6 +1,6 @@
 #include "memberManagementSystem.h"
 
-/* 1. 회원보기* /
+/* 1. 회원보기*/
 
 //printList함수에서 위 서식을 프린트하고 readTree함수를 불러와서 node을 출력
 int printList(member * node, member * leafNull)
@@ -17,7 +17,7 @@ int printList(member * node, member * leafNull)
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("───────────────────────────────\n");
 
-	readTree(node, leafNull);//tree에서 node들의 값을 읽어서 프린트하는함수
+	readTree(node, leafNull,NULL);//tree에서 node들의 값을 읽어서 프린트하는함수
 
 	fflush(stdin);
 	userInput = functionKeyInput();
@@ -28,35 +28,46 @@ int printList(member * node, member * leafNull)
 }
 
 //중위 순회로 트리를 읽어옴 id기준으로 정렬되어 print됨
-void readTree(member * node, member *leafNull)
+void readTree(member * node, member *leafNull, void (* writeDataToTxt) (member*))
 {
 	HANDLE hConsole;
-	static int  count =  0;
+	
 	
 
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	
 	if (node->left != leafNull)
 	{
-		readTree(node->left, leafNull);
-		SetConsoleTextAttribute(hConsole, 15);
-		centerJustIndent(60, hConsole);
-		printf("%-9d%-9s%-25s\t%s\n", node->id, node->name, node->address, node->phone);
-		count++;
-	
+		readTree(node->left, leafNull,writeDataToTxt);
+		if (!*writeDataToTxt)
+		{
+			SetConsoleTextAttribute(hConsole, 15);
+			centerJustIndent(60, hConsole);
+			printf("%-9d%-9s%-25s\t%s\n", node->id, node->name, node->address, node->phone);
+		}
+		else
+		{
+			writeDataToTxt(node);
+		}
 	}
 
 	else
 	{
-		SetConsoleTextAttribute(hConsole, 15);
-		centerJustIndent(60, hConsole);
-		printf("%-9d%-9s%-25s\t%s\n", node->id, node->name, node->address, node->phone);
-		count++;
+		if (!*writeDataToTxt)
+		{
+			SetConsoleTextAttribute(hConsole, 15);
+			centerJustIndent(60, hConsole);
+			printf("%-9d%-9s%-25s\t%s\n", node->id, node->name, node->address, node->phone);
+		}
+		else
+		{
+			writeDataToTxt(node);
+		}
 	}
 
 	if (node->right != leafNull)
 	{
-		readTree(node->right, leafNull);
+		readTree(node->right, leafNull,writeDataToTxt);
 	}
 }
 
@@ -93,8 +104,7 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 int inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력
 {
 	HANDLE hConsole;
-	COORD pos = { -1,  };
-	CONSOLE_SCREEN_BUFFER_INFO SBInfo;
+
 
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		
@@ -156,7 +166,7 @@ member * deleteUI(rootPointer * RP, member * leafNull)
 int deleteMember(rootPointer * RP, member * leafNull)
 {
 	int userInput;
-	char nameInput[basicStringSize];
+	
 	member * gonnaBeDeletedNode = addNode();
 	
 	gonnaBeDeletedNode = deleteUI(RP, leafNull);
@@ -164,7 +174,7 @@ int deleteMember(rootPointer * RP, member * leafNull)
 	replaceNode(gonnaBeDeletedNode, RP, leafNull);
 	printf("finish!\n");
 	scanf("%d", &userInput);
-
+	return userInput;
 }
 
 
@@ -591,7 +601,36 @@ member * searchId(int id, member * compare, member * leafNull, member** thisMan)
 	}
 
 }
+/* 6. 저장하기 */
 
+int saveData(rootPointer * RP, member * leafNull)
+{
+	FILE * fp;
+	HANDLE hConsole;
+	int userInput;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	fp = fopen("data.txt", "wt");
+	fseek(fp, 0, SEEK_SET);
+	fprintf(fp, "%s\t%s\t%s\t%s\n", "ID", "이름", "주소", "전화번호");
+	fclose(fp);
+	
+	readTree(RP->rootNode, leafNull, writeDataToTxt);
+	
+	scanf("%d",&userInput);
+	return userInput;
+}
+
+void writeDataToTxt(member * node)
+{
+	FILE * fp;
+	fp = fopen("data.txt", "r+");
+	fseek(fp, 0, SEEK_END);
+
+	fprintf(fp, "%d\t%s\t%s\t%s\n", node->id, node->name, node->address, node->phone);
+
+	fclose(fp);
+
+}
 
 
 /* 8.Credit 띄우기 */
