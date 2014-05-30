@@ -608,6 +608,8 @@ int saveData(rootPointer * RP, member * leafNull)
 	FILE * fp;
 	HANDLE hConsole;
 	int userInput;
+	char forCount[basicStringSize];
+	int count = 0;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	fp = fopen("data.txt", "wt");
 	fseek(fp, 0, SEEK_SET);
@@ -616,8 +618,27 @@ int saveData(rootPointer * RP, member * leafNull)
 	
 	readTree(RP->rootNode, leafNull, writeDataToTxt);
 	
-	scanf("%d",&userInput);
-	return userInput;
+	
+	fp = fopen("data.txt", "rt");
+	fseek(fp,0, SEEK_SET);
+	while (fgets(forCount,basicStringSize,fp))
+	{
+		count++;
+	}
+	fclose(fp);
+
+	printf("\n\n");
+	centerJustIndent(35, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("Saving has successfully done!\n");
+	centerJustIndent(26, hConsole);
+	printf("Total member : %d¸í\n\n", count);
+	centerJustIndent(40, hConsole);
+	printf("Press anykey to go to MainMenu....\n", count);
+	if (getche())
+	{
+		return -1;
+	}
 }
 
 void writeDataToTxt(member * node)
