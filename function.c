@@ -1,8 +1,8 @@
 #include "memberManagementSystem.h"
 
-/* 1. 회원보기 */
+/* 1. 회원보기* /
 
-//printList함수에서 맨위 서식을 프린트하고 readTree함수를 불러와서 node을 출력
+//printList함수에서 위 서식을 프린트하고 readTree함수를 불러와서 node을 출력
 int printList(member * node, member * leafNull)
 {
 	int userInput = 0;
