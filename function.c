@@ -156,6 +156,7 @@ member * deleteUI(rootPointer * RP, member * leafNull)
 	member * userInput = NULL;
 	member * searchPerson = addNode();
 	
+	
 	scanf("%d",&id);
 	
 	userInput = searchId(id, RP->rootNode, leafNull, &searchPerson);
