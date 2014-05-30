@@ -17,7 +17,7 @@ int printList(member * node, member * leafNull)
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("───────────────────────────────\n");
 
-	readTree(node, leafNull);//tree에서 node들의 값을 읽어서 프린트하는함수
+	readTree(node, leafNull,NULL);//tree에서 node들의 값을 읽어서 프린트하는함수
 
 	fflush(stdin);
 	userInput = functionKeyInput();
@@ -28,35 +28,45 @@ int printList(member * node, member * leafNull)
 }
 
 //중위 순회로 트리를 읽어옴 id기준으로 정렬되어 print됨
-void readTree(member * node, member *leafNull)
+void readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *))
 {
 	HANDLE hConsole;
-	static int  count =  0;
 	
 
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	
 	if (node->left != leafNull)
 	{
-		readTree(node->left, leafNull);
-		SetConsoleTextAttribute(hConsole, 15);
-		centerJustIndent(60, hConsole);
-		printf("%-9d%-9s%-25s\t%s\n", node->id, node->name, node->address, node->phone);
-		count++;
-	
+		readTree(node->left, leafNull,writeDataToTxt);
+		if (!*writeDataToTxt)
+		{
+			SetConsoleTextAttribute(hConsole, 15);
+			centerJustIndent(60, hConsole);
+			printf("%-9d%-9s%-25s\t%s\n", node->id, node->name, node->address, node->phone);
+		}
+		else
+		{
+			writeDataToTxt(node);
+		}
 	}
 
 	else
 	{
-		SetConsoleTextAttribute(hConsole, 15);
-		centerJustIndent(60, hConsole);
-		printf("%-9d%-9s%-25s\t%s\n", node->id, node->name, node->address, node->phone);
-		count++;
+		if (!*writeDataToTxt)
+		{
+			SetConsoleTextAttribute(hConsole, 15);
+			centerJustIndent(60, hConsole);
+			printf("%-9d%-9s%-25s\t%s\n", node->id, node->name, node->address, node->phone);
+		}
+		else
+		{
+			writeDataToTxt(node);
+		}
 	}
 
-	if (node->right != leafNull)
+	if (node->right != leafNull)	
 	{
-		readTree(node->right, leafNull);
+		readTree(node->right, leafNull,writeDataToTxt);
 	}
 }
 
@@ -150,7 +160,6 @@ member * deleteUI(rootPointer * RP, member * leafNull)
 int deleteMember(rootPointer * RP, member * leafNull)
 {
 	int userInput;
-	char nameInput[basicStringSize];
 	member * gonnaBeDeletedNode = addNode();
 	
 	gonnaBeDeletedNode = deleteUI(RP, leafNull);
@@ -559,6 +568,60 @@ member * searchId(int id, member * compare, member * leafNull, member** thisMan)
 
 
 
+/* 6. 저장하기 */
+
+int saveData(rootPointer * RP, member * leafNull)
+{
+	FILE * fp;
+	HANDLE hConsole;
+	char forCount[basicStringSize];
+	int count = 0;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	fp = fopen("data.txt", "wt");
+	fseek(fp, 0, SEEK_SET);
+	fprintf(fp, "%s\t%s\t%s\t%s\n", "ID", "이름", "주소", "전화번호");
+	fclose(fp);
+
+	readTree(RP->rootNode, leafNull, writeDataToTxt);
+
+
+	fp = fopen("data.txt", "rt");
+	fseek(fp, 0, SEEK_SET);
+	while (fgets(forCount, basicStringSize, fp))
+	{
+		count++;
+	}
+	fclose(fp);
+
+	printf("\n\n");
+	centerJustIndent(35, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("Saving has successfully done!\n");
+	centerJustIndent(26, hConsole);
+	printf("Total member : %d명\n\n", count);
+	centerJustIndent(40, hConsole);
+	printf("Press anykey to go to MainMenu....\n", count);
+	if (getche())
+	{
+		return -1;
+	}
+}
+
+void writeDataToTxt(member * node)
+{
+	FILE * fp;
+	fp = fopen("data.txt", "r+");
+	fseek(fp, 0, SEEK_END);
+
+	fprintf(fp, "%d\t%s\t%s\t%s\n", node->id, node->name, node->address, node->phone);
+
+	fclose(fp);
+
+}
+
+
+
+
 /* 8.Credit 띄우기 */
 
 int credit(void)
@@ -604,7 +667,7 @@ member * firstFunc(rootPointer * RP, member * leafNull)
 	leafNull->color = black;
 	char trash[basicStringSize];
 	fp = fopen("data.txt", "rt");
-
+	
 	if (fp == NULL) {
 		printf("file open error!\n");
 	}
