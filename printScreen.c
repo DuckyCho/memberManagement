@@ -52,6 +52,10 @@ int functionKeyInput(void)
 		{
 			return -1;
 		}
+		else if (userInput == 0)
+		{
+			continue;
+		}
 		else
 		{
 			printf("\a");
@@ -143,11 +147,16 @@ int mainUI(int upOrDown)
 
 	if (now <-20 || now == -1)
 	{
+		if ( now >-10)
+		{
+		printf("\a");
+		}
 		now = 0;
 		system("cls");
 	}
 	else if (now == 8)
 	{
+		printf("\a");
 		now = 7;
 		system("cls");
 	}

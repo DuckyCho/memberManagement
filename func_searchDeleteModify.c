@@ -434,7 +434,7 @@ void phoneCheck(member* node)
 
 	int i = 0;
 	while (node->phone[i] != NULL){
-		printf("%c", node->phone[i]);
+		//printf("%c", node->phone[i]);
 
 		if ('0' > node->phone[i] || node->phone[i] > '9')
 		{
@@ -452,11 +452,11 @@ void phoneCheck(member* node)
 				centerJustIndent(60, hConsole);
 				printf("이    름: ");
 				printf("%s", node->name);
-				printf("\n");
+				printf("\n\n");
 				centerJustIndent(60, hConsole);
 				printf("주    소: ");
 				printf("%s", node->address);
-				printf("\n");
+				printf("\n\n");
 				centerJustIndent(60, hConsole);
 				printf("전화번호: ");
 				scanf("%s", &(node->phone));
@@ -465,6 +465,6 @@ void phoneCheck(member* node)
 		}
 		i++;
 	}
-	return;
+	
 
 }

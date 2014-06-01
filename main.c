@@ -20,7 +20,7 @@ int main(void)
 			break;
 		case (0) :
 			system("cls");
-			userInput = printList(RP.rootNodeN, leafNull);
+			userInput = printList(RP.rootNode, leafNull);
 			break;
 		case (1) :
 			system("cls");
