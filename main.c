@@ -5,10 +5,12 @@ int main(void)
 {
 	int userInput = -1;
 	rootPointer RP = { NULL };
-	member * leafNull;
 
+	member * leafNull;
 	leafNull = (member *)malloc(sizeof(member)* 1);
-	leafNull = firstFunc(&RP, leafNull);
+	
+	leafNull = makeTree(&RP, leafNull);
+	leafNull = makeTree_Name(&RP, leafNull);
 
 	while (1)
 	{
@@ -18,7 +20,7 @@ int main(void)
 			break;
 		case (0) :
 			system("cls");
-			userInput = printList(RP.rootNode, leafNull);
+			userInput = printList(RP.rootNodeN, leafNull);
 			break;
 		case (1) :
 			system("cls");
@@ -28,7 +30,7 @@ int main(void)
 			userInput = printMain();
 		case (3) :
 			system("cls");
-			userInput = deleteMember(&RP, leafNull);
+			//userInput = deleteMember(&RP, leafNull);
 			break;
 		case (4) :
 			system("cls");

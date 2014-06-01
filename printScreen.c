@@ -120,7 +120,7 @@ void centerJustIndent(int string, HANDLE hConsole)//가운데 정렬을 위한 indent를 
 
 int mainUI(int upOrDown)
 {
-	static int now=0;
+	static int now = 0;
 	HANDLE hConsole;
 
 	int userInput = 0;
