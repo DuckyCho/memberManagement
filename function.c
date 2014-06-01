@@ -87,8 +87,8 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 
 	attachTree(node, RP, leafNull);
 	redBlackTree(node, RP, leafNull);
-	attachTreeN(node, RP, leafNull);
-	redBlackTreeN(node, RP, leafNull);
+	//attachTreeN(node, RP, leafNull);
+	//redBlackTreeN(node, RP, leafNull);
 
 	fflush(stdin);
 	userInput = functionKeyInput();
