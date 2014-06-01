@@ -5,7 +5,7 @@ member * addNode(void)
 {
 	member * node = 0;
 	node = (member *)malloc(sizeof(member)* 1);
-	
+
 	return node;
 }
 
