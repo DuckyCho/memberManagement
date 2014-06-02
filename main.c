@@ -10,7 +10,7 @@ int main(void)
 	leafNull = (member *)malloc(sizeof(member)* 1);
 	
 	leafNull = makeTree(&RP, leafNull);
-	//leafNull = makeTree_Name(&RP, leafNull);
+	leafNull = makeTree_Name(&RP, leafNull);
 
 	while (1)
 	{
@@ -27,23 +27,17 @@ int main(void)
 			userInput = addData(&RP, leafNull);
 			break;
 		case (2) :
-			userInput = printMain();
-		case (3) :
-			system("cls");
-			//userInput = deleteMember(&RP, leafNull);
-			break;
-		case (4) :
 			system("cls");
 			userInput = searchData(RP, leafNull);
 			break;
-		case (5) :
+		case (3) :
 			system("cls");
 			userInput = saveData(&RP, leafNull);
 			break;
-		case (6) :
+		case (4) :
 			system("cls");
 			return 0;
-		case (7) :
+		case (5) :
 			system("cls");
 			userInput = credit();
 		}

@@ -121,7 +121,7 @@ void inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력
 	centerJustIndent(60, hConsole);
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("───────────────────────────────\n");
-
+	printf("\n");
 	centerJustIndent(60, hConsole);
 	printf("이    름: ");
 	scanf("%s", &(node->name));
