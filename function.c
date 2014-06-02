@@ -78,23 +78,36 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 	int userInput = 0;
 	int nodeOfBiggestId;
 	member * node;
-
+	member * node_copy;
 	node = addNode();
+	node_copy = addNode();
 
 	nodeOfBiggestId = searchBiggestId(RP->rootNode, leafNull);
 	node->id = nodeOfBiggestId + 1;
 	inputData(node, leafNull);
 
+	//strcpy(node_copy->address, node->address);
+	//strcpy(node_copy->name, node->name);
+	//strcpy(node_copy->phone, node->phone);
+	
 	attachTree(node, RP, leafNull);
 	redBlackTree(node, RP, leafNull);
-	//attachTreeN(node, RP, leafNull);
-	//redBlackTreeN(node, RP, leafNull);
+
+
+	attachTreeN(node, RP, leafNull);
+	redBlackTreeN(node, RP, leafNull);
 
 	fflush(stdin);
 	userInput = functionKeyInput();
 	fflush(stdin);
 
 	return userInput;
+}
+
+member* copyNode(member* node)
+{
+	member copyNode;
+	
 }
 
 void inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력

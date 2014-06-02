@@ -28,7 +28,7 @@ typedef struct mem_t {
 } member;
 
 
-/* 레드블랙 트리 */
+/* 레드블랙 트리 - id로 정렬*/
 void redBlackTree(member *, rootPointer *, member *);
 void insert_case1(member *, rootPointer *, member *);
 void insert_case2(member *, rootPointer *, member *);
@@ -40,6 +40,19 @@ void rotateLeft(member*, member *, rootPointer *);
 member * searchMyFather(member *, member*, member *);
 member * searchMyUncle(member *);
 
+/*레드블랙 트리 - name으로 정렬*/
+void redBlackTreeN(member *, rootPointer *, member *);
+void insertN_case1(member *, rootPointer *, member *);
+void insertN_case2(member *, rootPointer *, member *);
+void insertN_case3(member *, rootPointer *, member *);
+void insertN_case4(member *, rootPointer *, member *);
+void insertN_case5(member *, rootPointer *, member *);
+void rotateRightN(member*, member *, rootPointer *);
+void rotateLeftN(member*, member *, rootPointer *);
+member * searchMyFatherN(member *, member*, member *);
+member * searchMyUncleN(member *);
+
+/*레드블랙 트리 - 삭제하기*/
 member * findSuccessor(member *, member *);
 member * findLeftSuccessor(member *, member *);
 member * findRightSuccessor(member *, member *);
@@ -66,23 +79,22 @@ member * deleteUI(member*, rootPointer *, member *);
 
 /* 4. 회원정보 검색/수정/삭제*/
 
-int searchData(rootPointer RP, member * leafNull);
+int searchData(rootPointer, member * );
 int selectSearch();
-int searchUI(int upOrDown);
-member* searchName(char* name, member * compare, member * leafNull);
-member* searchId(int id, member * compare, member * leafNull);
-void phoneCheck(member* node);
+int searchUI(int );
+member* searchName(char* , member * , member * );
+member* searchId(int , member * , member * );
+void phoneCheck(member* );
 
 //이름으로 검색
-
-int findByName(rootPointer RP, member * leafNull);
-int askModify(member* searchPerson, rootPointer* RP, member* leafNull);
-void modify(member* searchPerson, rootPointer* RP, member* leafNull);
+int find_byName(rootPointer , member * );
+int askModify_byName(member* , rootPointer* , member* );
+void modify_byName(member* , rootPointer* , member* );
 
 //회원번호로 검색
-
-int findById(rootPointer RP, member * leafNull);
-void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull);
+int find_byId(rootPointer , member * );
+int askModify_byId(member* , rootPointer* RP, member* );
+void modify_byId(member* , rootPointer* RP, member* );
 
 
 /* 6. 저장하기*/
@@ -97,8 +109,9 @@ int credit(void);
 /* 0.메인 함수 */
 void readData(member *, FILE *, member *);
 void attachTree(member *, rootPointer *, member *);
+void attachTreeN(member *, rootPointer * , member *);
 member * makeTree(rootPointer *, member*);
-member * makeTree_Name(rootPointer * RP, member * leafNull);
+member * makeTree_Name(rootPointer * , member *);
 member * addNode(void);
 
 /* 메인 UI함수 */
@@ -107,17 +120,7 @@ int mainUI(int);
 void centerJustIndent(int /*input strlen*/, HANDLE);
 int functionKeyInput(void);
 
-/*레드블랙 - name*/
-void redBlackTreeN(member *, rootPointer *, member *);
-void insertN_case1(member *, rootPointer *, member *);
-void insertN_case2(member *, rootPointer *, member *);
-void insertN_case3(member *, rootPointer *, member *);
-void insertN_case4(member *, rootPointer *, member *);
-void insertN_case5(member *, rootPointer *, member *);
-void rotateRightN(member*, member *, rootPointer *);
-void rotateLeftN(member*, member *, rootPointer *);
-member * searchMyFatherN(member *, member*, member *);
-member * searchMyUncleN(member *);
+
 
 
 

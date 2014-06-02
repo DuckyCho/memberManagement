@@ -2,6 +2,7 @@
 
 void attachTreeN(member * node, rootPointer * RP, member *leafNull)
 {
+
 	node->father = searchMyFatherN(node, RP->rootNodeN, leafNull);
 	node->color = red;
 
@@ -9,6 +10,7 @@ void attachTreeN(member * node, rootPointer * RP, member *leafNull)
 		RP->rootNodeN = node;
 		return;
 	}
+
 
 	if (strcmp((node->father)->name, node->name) == 0){
 		(node->father)->right = node;

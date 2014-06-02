@@ -12,11 +12,11 @@ int searchData(rootPointer RP, member * leafNull)//입력받은 회원의 이름을 이용하
 
 	if (now == 0)
 	{
-		userInput = findByName(RP, leafNull);
+		userInput = find_byName(RP, leafNull);
 	}
 	else if (now == 1)
 	{
-		userInput = findById(RP, leafNull);
+		userInput = find_byId(RP, leafNull);
 	}
 	else
 	{
@@ -32,6 +32,10 @@ int selectSearch()
 
 	system("cls");
 	searchUI(0);
+
+	if (GetAsyncKeyState(VK_UP)) Sleep(100);
+	if (GetAsyncKeyState(VK_DOWN))Sleep(100);
+	if (GetAsyncKeyState(VK_RETURN))Sleep(100);
 
 	while (1)
 	{
@@ -168,7 +172,7 @@ member * searchId(int id, member * compare, member * leafNull)
 
 /*이름으로 찾기*/
 
-int findByName(rootPointer RP, member * leafNull)
+int find_byName(rootPointer RP, member * leafNull)
 {
 	member* searchPerson = addNode();
 	int userInput = 0;
@@ -194,13 +198,13 @@ int findByName(rootPointer RP, member * leafNull)
 	userInput = functionKeyInput();
 	if (userInput = 3)
 	{
-		userInput = askModify(searchPerson, &RP, leafNull);
+		userInput = askModify_byName(searchPerson, &RP, leafNull);
 	}
 
 	return userInput;
 }
 
-int askModify(member* searchPerson, rootPointer* RP, member* leafNull)
+int askModify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 {
 	HANDLE hConsole;
 	char choice = 0;
@@ -220,14 +224,14 @@ int askModify(member* searchPerson, rootPointer* RP, member* leafNull)
 	printf("3. 전화번호\n");
 	centerJustIndent(60, hConsole);
 
-	modify(searchPerson, RP, leafNull);
+	modify_byName(searchPerson, RP, leafNull);
 
 	while (1){
 		centerJustIndent(60, hConsole);
 		printf("계속 수정하시겠습니까? (y/n) ");
 		scanf("%c", &choice);
 		if (choice == 'y'){
-			modify(searchPerson, RP, leafNull);
+			modify_byName(searchPerson, RP, leafNull);
 		}
 		else
 		{
@@ -240,7 +244,7 @@ int askModify(member* searchPerson, rootPointer* RP, member* leafNull)
 }
 
 
-void modify(member* searchPerson, rootPointer* RP, member* leafNull)
+void modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 {
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -369,7 +373,7 @@ void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 	return;
 }
 
-int findById(rootPointer RP, member * leafNull)
+int find_byId(rootPointer RP, member * leafNull)
 {
 	int id;
 	int userInput = 0;
@@ -428,17 +432,15 @@ member * deleteUI(member* searchPerson, rootPointer * RP, member * leafNull)
 /*전화번호 예외처리*/
 void phoneCheck(member* node)
 {
+	int i = 0;
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	fflush(stdin);
+	
+	while (node->phone[i]){
 
-	int i = 0;
-	while (node->phone[i] != NULL){
-		printf("%c", node->phone[i]);
-
-		if ('0' > node->phone[i] || node->phone[i] > '9')
+		if(('0' > node->phone[i] || node->phone[i] > '9')&&(node->phone[i] != '-'))
 		{
-			if (node->phone[i] != '-'){
+			
 				system("cls");
 				printf("\n\n\n\n\n");
 				centerJustIndent(60, hConsole);
@@ -461,10 +463,11 @@ void phoneCheck(member* node)
 				printf("전화번호: ");
 				scanf("%s", &(node->phone));
 				phoneCheck(node);
-			}
 		}
 		i++;
 	}
 	return;
 
 }
+
+
