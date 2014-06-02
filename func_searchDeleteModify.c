@@ -245,6 +245,7 @@ int askModify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 
 
 void modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
+
 {
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -454,20 +455,21 @@ void phoneCheck(member* node)
 				centerJustIndent(60, hConsole);
 				printf("이    름: ");
 				printf("%s", node->name);
-				printf("\n");
+
+				printf("\n\n");
 				centerJustIndent(60, hConsole);
 				printf("주    소: ");
 				printf("%s", node->address);
-				printf("\n");
+				printf("\n\n");
+
 				centerJustIndent(60, hConsole);
 				printf("전화번호: ");
 				scanf("%s", &(node->phone));
 				phoneCheck(node);
+
 		}
 		i++;
 	}
 	return;
 
 }
-
-

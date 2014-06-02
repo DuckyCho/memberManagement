@@ -86,6 +86,7 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 	node->id = nodeOfBiggestId + 1;
 	inputData(node, leafNull);
 
+
 	//strcpy(node_copy->address, node->address);
 	//strcpy(node_copy->name, node->name);
 	//strcpy(node_copy->phone, node->phone);
@@ -96,18 +97,16 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 
 	attachTreeN(node, RP, leafNull);
 	redBlackTreeN(node, RP, leafNull);
+	
+	//이름순으로 트리만들기 아직 구현중
+	//attachTreeN(node, RP, leafNull);
+	//redBlackTreeN(node, RP, leafNull);
 
 	fflush(stdin);
 	userInput = functionKeyInput();
 	fflush(stdin);
 
 	return userInput;
-}
-
-member* copyNode(member* node)
-{
-	member copyNode;
-	
 }
 
 void inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력
@@ -128,14 +127,18 @@ void inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력
 	centerJustIndent(60, hConsole);
 	printf("이    름: ");
 	scanf("%s", &(node->name));
+
+	fflush(stdin);
 	printf("\n");
 	centerJustIndent(60, hConsole);
 	printf("주    소: ");
-	scanf("%s", &(node->address));
+	gets(node->address);
+	fflush(stdin);
 	printf("\n");
 	centerJustIndent(60, hConsole);
 	printf("전화번호: ");
-	scanf("%s", &(node->phone));
+	gets(node->phone);
+	fflush(stdin);
 
 	phoneCheck(node);
 

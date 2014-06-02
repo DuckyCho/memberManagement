@@ -28,7 +28,9 @@ typedef struct mem_t {
 } member;
 
 
+
 /* 레드블랙 트리 - id로 정렬*/
+
 void redBlackTree(member *, rootPointer *, member *);
 void insert_case1(member *, rootPointer *, member *);
 void insert_case2(member *, rootPointer *, member *);
@@ -79,6 +81,7 @@ member * deleteUI(member*, rootPointer *, member *);
 
 /* 4. 회원정보 검색/수정/삭제*/
 
+<<<<<<< HEAD
 int searchData(rootPointer, member * );
 int selectSearch();
 int searchUI(int );
@@ -109,6 +112,7 @@ int credit(void);
 /* 0.메인 함수 */
 void readData(member *, FILE *, member *);
 void attachTree(member *, rootPointer *, member *);
+
 void attachTreeN(member *, rootPointer * , member *);
 member * makeTree(rootPointer *, member*);
 member * makeTree_Name(rootPointer * , member *);
@@ -119,8 +123,4 @@ int printMain(void);
 int mainUI(int);
 void centerJustIndent(int /*input strlen*/, HANDLE);
 int functionKeyInput(void);
-
-
-
-
 
