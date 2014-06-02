@@ -81,7 +81,7 @@ member * deleteUI(member*, rootPointer *, member *);
 
 /* 4. 회원정보 검색/수정/삭제*/
 
-<<<<<<< HEAD
+
 int searchData(rootPointer, member * );
 int selectSearch();
 int searchUI(int );

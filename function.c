@@ -86,22 +86,20 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 	node->id = nodeOfBiggestId + 1;
 	inputData(node, leafNull);
 
+	node_copy->id = node -> id;
+	strcpy(node_copy->address, node->address);
+	strcpy(node_copy->name, node->name);
+	strcpy(node_copy->phone, node->phone);
+	node_copy->left = leafNull;
+	node_copy->right = leafNull;
 
-	//strcpy(node_copy->address, node->address);
-	//strcpy(node_copy->name, node->name);
-	//strcpy(node_copy->phone, node->phone);
-	
 	attachTree(node, RP, leafNull);
 	redBlackTree(node, RP, leafNull);
 
 
-	attachTreeN(node, RP, leafNull);
-	redBlackTreeN(node, RP, leafNull);
+	attachTreeN(node_copy, RP, leafNull);
+	redBlackTreeN(node_copy, RP, leafNull);
 	
-	//이름순으로 트리만들기 아직 구현중
-	//attachTreeN(node, RP, leafNull);
-	//redBlackTreeN(node, RP, leafNull);
-
 	fflush(stdin);
 	userInput = functionKeyInput();
 	fflush(stdin);
@@ -272,7 +270,6 @@ member * makeTree(rootPointer * RP, member * leafNull)
 
 
 	do{
-		//fseek(fp, -1, SEEK_CUR);
 		node = addNode();
 
 		readData(node, fp, leafNull);
@@ -305,7 +302,6 @@ member * makeTree_Name(rootPointer * RP, member * leafNull)
 
 
 	do{
-		//fseek(fp, -1, SEEK_CUR);
 		node = addNode();
 		readData(node, fp, leafNull);
 		if (node->id < 0)
