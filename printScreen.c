@@ -85,25 +85,25 @@ int printMain(void)
 	}
 	*/
 
-	if (GetAsyncKeyState(VK_UP)) Sleep(100);
-	if (GetAsyncKeyState(VK_DOWN))Sleep(100);
-	if (GetAsyncKeyState(VK_RETURN))Sleep(100);
+	if (GetAsyncKeyState(VK_UP)) Sleep(10);
+	if (GetAsyncKeyState(VK_DOWN))Sleep(10);
+	if (GetAsyncKeyState(VK_RETURN))Sleep(10);
 
 	while (1)
 	{
 		if (GetAsyncKeyState(VK_DOWN))
 		{
 			userInput = mainUI(1);
-			Sleep(200);
+			Sleep(80);
 		}
 		else if (GetAsyncKeyState(VK_UP))
 		{
 			userInput = mainUI(-1);
-			Sleep(200);
+			Sleep(80);
 		}
 		else if (GetAsyncKeyState(VK_RETURN))
 		{
-			Sleep(200);
+			Sleep(80);
 			mainUI(-80);
 			getchar();
 			return userInput;

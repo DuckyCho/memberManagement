@@ -194,6 +194,7 @@ int saveData(rootPointer * RP, member * leafNull)
 	printf("Press anykey to go to MainMenu....\n", count);
 	if (getche())
 	{
+		fflush(stdin);
 		return -1;
 	}
 }
