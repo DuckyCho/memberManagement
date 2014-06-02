@@ -10,7 +10,7 @@ int main(void)
 	leafNull = (member *)malloc(sizeof(member)* 1);
 	
 	leafNull = makeTree(&RP, leafNull);
-	leafNull = makeTree_Name(&RP, leafNull);
+	//leafNull = makeTree_Name(&RP, leafNull);
 
 	while (1)
 	{

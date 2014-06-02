@@ -86,14 +86,12 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 	node->id = nodeOfBiggestId + 1;
 	inputData(node, leafNull);
 
-
 	//strcpy(node_copy->address, node->address);
 	//strcpy(node_copy->name, node->name);
 	//strcpy(node_copy->phone, node->phone);
 	
 	attachTree(node, RP, leafNull);
 	redBlackTree(node, RP, leafNull);
-
 
 	attachTreeN(node, RP, leafNull);
 	redBlackTreeN(node, RP, leafNull);
@@ -160,9 +158,6 @@ int searchBiggestId(member * node, member* leafNull)
 		return searchBiggestId(node->right, leafNull);
 	}
 }
-
-
-
 
 /* 6. 저장하기 */
 
