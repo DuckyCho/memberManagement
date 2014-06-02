@@ -143,7 +143,6 @@ member * searchName(char* name, member * compare, member * leafNull)
 	{
 		return compare;
 	}
-
 }
 
 
@@ -345,7 +344,7 @@ void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 		centerJustIndent(60, hConsole);
 		printf("이   름: ");
 		scanf("%s", searchPerson->name);
-		searchPerson_Name = searchId(searchPerson->id, RP->rootNode, leafNull);
+		searchPerson_Name = searchId(searchPerson->id, RP->rootNodeN, leafNull);
 		strcpy(searchPerson_Name->name, searchPerson->name);
 		fflush(stdin);
 	}
@@ -353,7 +352,7 @@ void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 		centerJustIndent(60, hConsole);
 		printf("주   소: ");
 		scanf("%s", searchPerson->address);
-		searchPerson_Name = searchId(searchPerson->id, RP->rootNode, leafNull);
+		searchPerson_Name = searchId(searchPerson->id, RP->rootNodeN, leafNull);
 		strcpy(searchPerson_Name->name, searchPerson->name);
 		fflush(stdin);
 	}
@@ -363,7 +362,7 @@ void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 		
 		phoneCheck(searchPerson);
 
-		searchPerson_Name = searchId(searchPerson->id, RP->rootNode, leafNull);
+		searchPerson_Name = searchId(searchPerson->id, RP->rootNodeN, leafNull);
 		strcpy(searchPerson_Name->name, searchPerson->name);
 		fflush(stdin);
 	}

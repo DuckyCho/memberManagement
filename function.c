@@ -159,9 +159,6 @@ int searchBiggestId(member * node, member* leafNull)
 	}
 }
 
-
-
-
 /* 6. 저장하기 */
 
 int saveData(rootPointer * RP, member * leafNull)
