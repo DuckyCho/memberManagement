@@ -13,10 +13,12 @@ int searchData(rootPointer RP, member * leafNull)//입력받은 회원의 이름을 이용하
 	if (now == 0)
 	{
 		userInput = find_byName(RP, leafNull);
+		return userInput;
 	}
 	else if (now == 1)
 	{
 		userInput = find_byId(RP, leafNull);
+		return userInput;
 	}
 	else
 	{
@@ -182,26 +184,42 @@ int find_byName(rootPointer RP, member * leafNull)
 	printf("검색할 회원의 이름을 입력하세요\n");
 	printf("───────────────────────────────\n\n");
 	printf("이   름: ");
-	scanf("%s", name);
+	gets(name);
 
 	searchPerson = searchName(name, RP.rootNodeN, leafNull);
 
-	if (searchPerson == leafNull)
+	if (searchPerson == leafNull) //회원검색했을 때 결과가 없는경우
 	{
 		printf("없는 회원입니다.\n");
-		userInput = functionKeyInput();
-		return userInput;
+		userInput = functionKeyInput_WhenSearchResultVoid;
+		switch (userInput){
+		case (2) : //F1 : 회원검색 다시하기
+			return userInput;
+		case (-1) : //F10 : 메인메뉴
+			return userInput;
+		}
 	}
+
+
 	printf("%-9d%-9s%-25s\t%s\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
 
 	userInput = functionKeyInput();
-	if (userInput = 3)
-	{
-		userInput = askModify_byName(searchPerson, &RP, leafNull);
-	}
-	
+	switch (userInput){
+	case (0) : //F1 : 회원보기
+		return userInput;
+	case (1) : //F2 : 회원등록
+		return userInput;
+	case (2) :  //F5 : 회원검색
+		return userInput;
+	case (6) : //F3 : 회원삭제
+		userInput = deleteUI(searchPerson, &RP, leafNull);
+		return userInput;
+	case (7) : //F4 : 회원정보수정
 
-	return userInput;
+	case (-1) : //F10 : 메인메뉴
+				return userInput;
+	}
+
 }
 
 int askModify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
@@ -414,21 +432,71 @@ int find_byId(rootPointer RP, member * leafNull)
 
 
 /* 3. 회원 삭제하기 */
-member * deleteUI(member* searchPerson, rootPointer * RP, member * leafNull)
+int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 {
-	member * userInput = NULL;
-	member * gonnaBeDeletedNode = addNode();
+	int userInput = NULL;
+	HANDLE hConsole;
+	char * upperDeco = "○─────────────────────────────○";
+	
+	
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	
+	system("cls");
+	printf("\n");
 
-	gonnaBeDeletedNode = searchId(searchPerson->id, RP->rootNode, leafNull);
+	centerJustIndent(15, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("Sure to delete??\n\n\n\n\n\n\n\n\n");
 
-	replaceNode(gonnaBeDeletedNode, RP, leafNull);
-	replaceNode(searchPerson, RP, leafNull);
+	
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("%s\n", upperDeco);
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("│%-9d%-9s%-25s\t%s│\n",gonnaBeDeletedNode->id,gonnaBeDeletedNode->name,gonnaBeDeletedNode->address,gonnaBeDeletedNode->phone);
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("%s\n\n\n\n\n\n\n\n", upperDeco);
 
-	printf("finish!\n");
+	centerJustIndent(32, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("  cancel ESC    delete ENTER  \n");
+	SetConsoleTextAttribute(hConsole, 13);
+	
+	while (1)
+	{
+		fflush(stdin);
+		userInput = getch();
+		if (userInput == 27) {
+			userInput = -1;
+			return userInput;
+		}
+		else if (userInput == 13) {
+			replaceNode(gonnaBeDeletedNode, RP, leafNull);
+			centerJustIndent(18, hConsole);
+			printf(".");
+			Sleep(100);
+			printf(".");
+			Sleep(100);
+			printf(".");
+			Sleep(100);
+			printf(".");
+			Sleep(100);
+			printf("Delete done!!");
+			centerJustIndent(15, hConsole);
+			break;
+		}
+		else{
+			printf("\a");
+			continue;
+		}
+	}
 
-	userInput = functionKeyInput();
-	return userInput;
+		userInput = functionKeyInput_WhenSearchResultVoid();
+		return userInput;
 }
+
 
 /*전화번호 예외처리*/
 void phoneCheck(member* node)

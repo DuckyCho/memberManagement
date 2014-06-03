@@ -1,4 +1,44 @@
 #include "memberManagementSystem.h"
+//회원 검색 결과가 없을 때 입력받기 화면
+int functionKeyInput_WhenSearchResultVoid(void)
+{
+	int userInput;
+	char * f1 = "F1회원검색 다시하기";
+	char * f10 = "F10메인메뉴";
+
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("\n\n\n");
+	centerJustIndent(35, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf(" %s  %s  ", f1, f10);
+	SetConsoleTextAttribute(hConsole, 14);
+	
+	while (1)
+	{
+		userInput = getch();
+
+		if (userInput == 59) //F1 : 회원검색 다시하기
+		{
+			return 2;
+		}
+		else if (userInput == 68) //F10 : 메인메뉴
+		{
+			return -1;
+		}
+		else if (userInput == 0)
+		{
+			continue;
+		}
+		else
+		{
+			printf("\a");
+		}
+	}
+
+}
 
 
 
@@ -28,27 +68,27 @@ int functionKeyInput(void)
 	{
 		userInput = getch();
 
-		if (userInput == 59)
+		if (userInput == 59) //F1 : 회원보기
 		{
 			return 0;
 		}
-		else if (userInput == 60)
+		else if (userInput == 60) //F2 : 회원등록
 		{
 			return 1;
 		}
-		else if (userInput == 61)
+		else if (userInput == 61) //F3 : 회원삭제
+		{
+			return 6;
+		}
+		else if (userInput == 62) //F4 : 회원정보수정
+		{
+			return 7;
+		}
+		else if (userInput == 63) //F5 : 회원검색
 		{
 			return 2;
 		}
-		else if (userInput == 62)
-		{
-			return 3;
-		}
-		else if (userInput == 63)
-		{
-			return 4;
-		}
-		else if (userInput == 68)
+		else if (userInput == 68) //F10 : 메인메뉴
 		{
 			return -1;
 		}

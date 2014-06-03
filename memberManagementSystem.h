@@ -76,7 +76,7 @@ void inputData(member * node, member * leafNull);
 int searchBiggestId(member *, member *);
 
 /* 3. 회원 삭제하기 */
-member * deleteUI(member*, rootPointer *, member *);
+int deleteUI(member*, rootPointer *, member *);
 
 
 /* 4. 회원정보 검색/수정/삭제*/
@@ -123,4 +123,5 @@ int printMain(void);
 int mainUI(int);
 void centerJustIndent(int /*input strlen*/, HANDLE);
 int functionKeyInput(void);
+int functionKeyInput_WhenSearchResultVoid(void);
 
