@@ -191,7 +191,7 @@ int find_byName(rootPointer RP, member * leafNull)
 	if (searchPerson == leafNull) //회원검색했을 때 결과가 없는경우
 	{
 		printf("없는 회원입니다.\n");
-		userInput = functionKeyInput_WhenSearchResultVoid;
+		userInput = functionKeyInput_WhenSearchResultVoid();
 		switch (userInput){
 		case (2) : //F1 : 회원검색 다시하기
 			return userInput;
