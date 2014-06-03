@@ -184,6 +184,7 @@ int find_byName(rootPointer RP, member * leafNull)
 	printf("검색할 회원의 이름을 입력하세요\n");
 	printf("───────────────────────────────\n\n");
 	printf("이   름: ");
+	fflush(stdin);
 	gets(name);
 
 	searchPerson = searchName(name, RP.rootNodeN, leafNull);
@@ -215,9 +216,10 @@ int find_byName(rootPointer RP, member * leafNull)
 		userInput = deleteUI(searchPerson, &RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-
+		userInput = askModify_byName(searchPerson, &RP, leafNull);
+		return userInput;
 	case (-1) : //F10 : 메인메뉴
-				return userInput;
+			return userInput;
 	}
 
 }
@@ -234,14 +236,6 @@ int askModify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 	centerJustIndent(60, hConsole);
 	printf("%-9d%-9s%-25s\t%s\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
 
-	centerJustIndent(60, hConsole);
-	printf("1. 이    름\n");
-	centerJustIndent(60, hConsole);
-	printf("2. 주    소\n");
-	centerJustIndent(60, hConsole);
-	printf("3. 전화번호\n");
-	centerJustIndent(60, hConsole);
-
 	modify_byName(searchPerson, RP, leafNull);
 
 	while (1){
@@ -251,25 +245,26 @@ int askModify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 		if (choice == 'y'){
 			modify_byName(searchPerson, RP, leafNull);
 		}
-		else
-		{
-			userInput = functionKeyInput();
+
+		userInput = functionKeyInput_WhenSearchResultVoid();
+		switch (userInput){
+		case (2) : //F1 : 회원검색 다시하기
+			return userInput;
+		case (-1) : //F10 : 메인메뉴
 			return userInput;
 		}
 	}
-	userInput = functionKeyInput();
-	return userInput;
+
 }
 
 
 void modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
-
 {
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	int choice = 0;
 	member* searchPerson_Id;
-	printf("\n\n어떤 정보를 변경하시겠습니까? (1~3)\n취소하려면 아무키나 누르세요.\n");
+	printf("\n\n어떤 정보를 변경하시겠습니까?\n1. 이    름\t2. 주    소\t3. 전화번호\n");
 	scanf("%d", &choice);
 	fflush(stdin);
 
@@ -309,6 +304,7 @@ void modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 
 
 
+
 /*회원번호로 찾기*/
 int askModify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 {
@@ -322,14 +318,6 @@ int askModify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 	centerJustIndent(60, hConsole);
 	printf("%-9d%-9s%-25s\t%s\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
 
-	centerJustIndent(60, hConsole);
-	printf("1. 이    름\n");
-	centerJustIndent(60, hConsole);
-	printf("2. 주    소\n");
-	centerJustIndent(60, hConsole);
-	printf("3. 전화번호\n");
-	centerJustIndent(60, hConsole);
-
 	modify_byId(searchPerson, RP, leafNull);
 
 	while (1){
@@ -339,14 +327,15 @@ int askModify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 		if (choice == 'y'){
 			modify_byId(searchPerson, RP, leafNull);
 		}
-		else
-		{
-			userInput = functionKeyInput();
+
+		userInput = functionKeyInput_WhenSearchResultVoid();
+		switch (userInput){
+		case (2) : //F1 : 회원검색 다시하기
+			return userInput;
+		case (-1) : //F10 : 메인메뉴
 			return userInput;
 		}
 	}
-	userInput = functionKeyInput();
-	return userInput;
 }
 
 void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
@@ -355,7 +344,7 @@ void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	int choice = 0;
 	member* searchPerson_Name;
-	printf("\n\n어떤 정보를 변경하시겠습니까? (1~3)\n취소하려면 아무키나 누르세요.\n");
+	printf("\n\n어떤 정보를 변경하시겠습니까?\n1. 이    름\t2. 주    소\t3. 전화번호\n");
 	scanf("%d", &choice);
 	fflush(stdin);
 
@@ -405,6 +394,7 @@ int find_byId(rootPointer RP, member * leafNull)
 	printf("검색할 회원의 회원번호를 입력하세요\n");
 	printf("───────────────────────────────\n\n");
 	printf("회원번호: ");
+	fflush(stdin);
 	scanf("%d", &id);
 
 	searchPerson = searchId(id, RP.rootNode, leafNull);
@@ -412,19 +402,33 @@ int find_byId(rootPointer RP, member * leafNull)
 	if (searchPerson == leafNull)
 	{
 		printf("없는 회원번호입니다.\n");
-		userInput = functionKeyInput();
+		userInput = functionKeyInput_WhenSearchResultVoid();
+		switch (userInput){
+		case (2) : //F1 : 회원검색 다시하기
+			return userInput;
+		case (-1) : //F10 : 메인메뉴
+			return userInput;
+		}
 		return userInput;
 	}
 	printf("%-9d%-9s%-25s\t%s\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
-
 	userInput = functionKeyInput();
-	if (userInput == 3)
-	{
+	switch (userInput){
+	case (0) : //F1 : 회원보기
+		return userInput;
+	case (1) : //F2 : 회원등록
+		return userInput;
+	case (2) :  //F5 : 회원검색
+		return userInput;
+	case (6) : //F3 : 회원삭제
+		userInput = deleteUI(searchPerson, &RP, leafNull);
+		return userInput;
+	case (7) : //F4 : 회원정보수정
 		userInput = askModify_byId(searchPerson, &RP, leafNull);
-	}else if (userInput == 2){
-	userInput = deleteUI(searchPerson, &RP, leafNull);
+		return userInput;
+	case (-1) : //F10 : 메인메뉴
+		return userInput;
 	}
-	return userInput;
 }
 
 

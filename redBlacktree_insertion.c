@@ -160,7 +160,7 @@ void rotateLeft(member* father, member * grandF, rootPointer * RP)
 
 	node->father = grandF;
 	father->father = node;
-	leftChildOfNode->father = father;//없어도될듯
+	leftChildOfNode->father = father;
 }
 
 member * searchMyFather(member * node, member * compare, member * leafNull)

@@ -3,7 +3,7 @@
 int functionKeyInput_WhenSearchResultVoid(void)
 {
 	int userInput;
-	char * f1 = "F1회원검색 다시하기";
+	char * f1 = "F1회원검색";
 	char * f10 = "F10메인메뉴";
 
 	HANDLE hConsole;
@@ -147,6 +147,11 @@ int printMain(void)
 			mainUI(-80);
 			getchar();
 			return userInput;
+		}
+		else
+		{
+			fflush(stdin);
+			continue;
 		}
 	}
 }

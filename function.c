@@ -20,10 +20,10 @@ int printList(member * node, member * leafNull)
 	readTree(node, leafNull, NULL);//tree에서 node들의 값을 읽어서 프린트하는함수
 
 	fflush(stdin);
-	userInput = functionKeyInput();
+	userInput = functionKeyInput_WhenSearchResultVoid();
 	fflush(stdin);
 	
-		return userInput;
+	return userInput;
 
 }
 
