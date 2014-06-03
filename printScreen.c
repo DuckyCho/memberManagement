@@ -1,5 +1,6 @@
 #include "memberManagementSystem.h"
 //회원 검색 결과가 없을 때 입력받기 화면
+
 int functionKeyInput_WhenSearchResultVoid(void)
 {
 	int userInput;
@@ -11,9 +12,9 @@ int functionKeyInput_WhenSearchResultVoid(void)
 	
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("\n\n\n");
-	centerJustIndent(35, hConsole);
+	centerJustIndent(29, hConsole);
 	SetConsoleTextAttribute(hConsole, 252);
-	printf(" %s  %s  ", f1, f10);
+	printf(" %s  %s ", f1, f10);
 	SetConsoleTextAttribute(hConsole, 14);
 	
 	while (1)

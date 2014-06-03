@@ -184,15 +184,15 @@ int saveData(rootPointer * RP, member * leafNull)
 	}
 	fclose(fp);
 
-	printf("\n\n");
-	centerJustIndent(35, hConsole);
+	printf("\n\n\n\n\n\n\n\n\n\n");
+	centerJustIndent(30, hConsole);
 	SetConsoleTextAttribute(hConsole, 252);
 	printf("Saving has successfully done!\n");
-	centerJustIndent(26, hConsole);
+	centerJustIndent(21, hConsole);
 	printf("Total member : %d명\n\n", count);
-	centerJustIndent(40, hConsole);
+	centerJustIndent(35, hConsole);
 	printf("Press anykey to go to MainMenu....\n", count);
-	if (getche())
+	if (getch())
 	{
 		fflush(stdin);
 		return -1;
@@ -221,7 +221,7 @@ int credit(void)
 	HANDLE hConsole;
 	char * line1 = "NHN NEXT 2014 프로그래밍연습 기말과제";
 	char * line2 = "김 정 봉   조 영 대";
-
+	char * line3 = "박은종 교수님 감사합니다!";
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	printf("\n\n\n\n\n\n\n");
 	centerJustIndent(strlen(line1), hConsole);
@@ -230,10 +230,16 @@ int credit(void)
 
 	centerJustIndent(strlen(line2), hConsole);
 	SetConsoleTextAttribute(hConsole, 14);
-	printf("%s\n\n\n", line2);
+	printf("%s\n\n", line2);
+	centerJustIndent(strlen(line3)+2, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf(" %s \n\n\n\n\n", line3);
 
-	getchar();
-	return printMain();
+	while (getch())
+	{
+		fflush(stdin);
+		return printMain();
+	}
 }
 
 
