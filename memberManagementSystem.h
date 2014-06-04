@@ -70,41 +70,33 @@ int printList(member *, member*);
 int addData(rootPointer * RP, member*);
 void inputData(member * node, member * leafNull);
 int searchBiggestId(member *, member *);
+void phoneCheck(member*);
+void nameCheck(member*);
 
 /* 3. 회원 삭제하기 */
 int deleteUI(member*, rootPointer *, member *);
 
-
 /* 4. 회원정보 검색/수정/삭제*/
-
-
-int searchData(rootPointer, member * );
-int selectSearch();
-int searchUI(int );
-member* searchName(char* , member * , member * );
-member* searchId(int , member * , member * );
-void phoneCheck(member* );
-void nameCheck(member* );
+void showMember(member* searchPerson);
+member* searchName(char*, member *, member *);
+member* searchId(int, member *, member *);
+int selectSearch(rootPointer, member *);
+int searchUI(int);
 
 //이름으로 검색
 int find_byName(rootPointer , member * );
-int askModify_byName(member* , rootPointer* , member* );
 void modify_byName(member* , rootPointer* , member* );
 
 //회원번호로 검색
 int find_byId(rootPointer , member * );
-int askModify_byId(member* , rootPointer* RP, member* );
 void modify_byId(member* , rootPointer* RP, member* );
-
 
 /* 6. 저장하기*/
 int saveData(rootPointer *, member *);
 void writeDataToTxt(member *);
 
-
 /* 8. credit 보기 */
 int credit(void);
-
 
 /* 0.메인 함수 */
 void readData(member *, FILE *, member *);
