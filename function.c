@@ -114,37 +114,124 @@ void inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	fflush(stdin);
-	printf("\n\n\n\n\n");
-	centerJustIndent(60, hConsole);
-	SetConsoleTextAttribute(hConsole, 14);
-	printf("추가하실 회원의 정보를 입력하세요\n");
-	centerJustIndent(60, hConsole);
-	SetConsoleTextAttribute(hConsole, 14);
-	printf("───────────────────────────────\n");
 	printf("\n");
-	centerJustIndent(60, hConsole);
-	printf("이    름: ");
-	scanf("%s", &(node->name));
 
+	centerJustIndent(35, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("please insert membership information.\n\n\n\n");
+
+	centerJustIndent(50, hConsole);
+	printf("name: ");
+	scanf("%s", &(node->name));
+	nameCheck(node);
 	fflush(stdin);
 	printf("\n");
-	centerJustIndent(60, hConsole);
-	printf("주    소: ");
+
+	centerJustIndent(50, hConsole);
+	printf("address: ");
 	gets(node->address);
 	fflush(stdin);
 	printf("\n");
-	centerJustIndent(60, hConsole);
-	printf("전화번호: ");
-	gets(node->phone);
-	fflush(stdin);
 
+	centerJustIndent(50, hConsole);
+	printf("phone: ");
+	gets(node->phone);
 	phoneCheck(node);
+	fflush(stdin);
+	printf("\n\n\n");
+
+
+	centerJustIndent(39, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("Registration complete. Congratulations!!\n");
 
 	node->father = NULL;
 	node->color = red;
 	node->left = leafNull;
 	node->right = leafNull;
 
+}
+
+/*전화번호 예외처리*/
+void phoneCheck(member* node)
+{
+	int count = 0;
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	while (node->phone[count]){
+
+		if (('0' > node->phone[count] || node->phone[count] > '9') && (node->phone[count] != '-') || (count > 15))
+		{
+
+			system("cls");
+			printf("\n");	
+			centerJustIndent(35, hConsole);
+			SetConsoleTextAttribute(hConsole, 252);
+			printf("please insert membership information.\n\n");
+			
+			centerJustIndent(41, hConsole);
+			SetConsoleTextAttribute(hConsole, 14);
+			printf("the phone number is not properly formatted.\n\n");
+			 
+			centerJustIndent(50, hConsole);
+			printf("name: ");
+			printf("%s", node->name);
+			printf("\n\n");
+
+			centerJustIndent(50, hConsole);
+			printf("address: ");
+			printf("%s", node->address);
+			printf("\n\n");
+
+			centerJustIndent(50, hConsole);
+			printf("phone: ");
+			scanf("%s", &(node->phone));
+			phoneCheck(node);
+			count = 0;
+		}
+		count++;
+	}
+
+	return;
+}
+
+
+
+/*이름 예외처리*/
+void nameCheck(member* node)
+{
+	int count = 0;
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	while (node->name[count]){
+		count++;
+	}
+
+	if (count > 10)
+	{
+		
+		count = 0;
+
+		system("cls");
+		printf("\n");
+		centerJustIndent(35, hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("please insert membership information.\n\n");
+
+
+		centerJustIndent(33, hConsole);
+		SetConsoleTextAttribute(hConsole, 14);
+		printf("the name is not properly formatted.\n\n");
+
+		centerJustIndent(50, hConsole);
+		printf("name: ");
+		scanf("%s", &(node->name));
+		nameCheck(node);
+
+	}
+	return;
 }
 
 int searchBiggestId(member * node, member* leafNull)
@@ -191,7 +278,7 @@ int saveData(rootPointer * RP, member * leafNull)
 	centerJustIndent(21, hConsole);
 	printf("Total member : %d명\n\n", count);
 	centerJustIndent(35, hConsole);
-	printf("Press anykey to go to MainMenu....\n", count);
+	printf("Press anykey to go to MainMenu....\n"/*, count*/);
 	if (getch())
 	{
 		fflush(stdin);

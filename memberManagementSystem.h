@@ -27,10 +27,7 @@ typedef struct mem_t {
 
 } member;
 
-
-
 /* 레드블랙 트리 - id로 정렬*/
-
 void redBlackTree(member *, rootPointer *, member *);
 void insert_case1(member *, rootPointer *, member *);
 void insert_case2(member *, rootPointer *, member *);
@@ -65,7 +62,6 @@ void deleteNode_step2(member *, rootPointer *, member *);
 void deleteNode_step3(member *, rootPointer *, member *);
 void deleteNode_step4(member *, rootPointer *, member *);
 
-
 /* 1. 회원명단 보기 */
 void readTree(member *, member *, void(*)(member *));
 int printList(member *, member*);
@@ -88,6 +84,7 @@ int searchUI(int );
 member* searchName(char* , member * , member * );
 member* searchId(int , member * , member * );
 void phoneCheck(member* );
+void nameCheck(member* );
 
 //이름으로 검색
 int find_byName(rootPointer , member * );
