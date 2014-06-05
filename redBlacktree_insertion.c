@@ -116,6 +116,8 @@ void rotateRight(member* father, member * grandF, rootPointer * RP)
 	member * node = father->left;
 	member * rightChildOfNode = node->right;
 
+
+
 	if (grandF != NULL)
 	{
 		if (node->id > grandF->id)
