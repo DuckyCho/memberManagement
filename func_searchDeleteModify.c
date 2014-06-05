@@ -3,30 +3,7 @@
 /* 5. 회원 검색하기 */
 
 
-int searchData(rootPointer RP, member * leafNull)//입력받은 회원의 이름을 이용하여 회원 정보 검색
-{
-	int now;
-	int userInput = 0;
-
-	now = selectSearch();
-
-	if (now == 0)
-	{
-		userInput = find_byName(RP, leafNull);
-		return userInput;
-	}
-	else if (now == 1)
-	{
-		userInput = find_byId(RP, leafNull);
-		return userInput;
-	}
-	else
-	{
-		return -1;
-	}
-}
-
-int selectSearch()
+int selectSearch(rootPointer RP, member * leafNull)
 {
 	HANDLE hConsole;
 	int userInput = 0;
@@ -56,24 +33,36 @@ int selectSearch()
 			Sleep(200);
 			searchUI(-80);
 			getchar();
-			return userInput;
+			break;
 		}
 	}
-}
 
+	if (userInput == 0)
+	{
+		userInput = find_byName(RP, leafNull);
+		return userInput;
+	}
+	else if (userInput == 1)
+	{
+		userInput = find_byId(RP, leafNull);
+		return userInput;
+	}
+	else{
+		return -1;
+	}
+}
 
 int searchUI(int upOrDown)
 {
 	HANDLE hConsole;
 	static int now = 0;
-	char * menu1 = "이름으로 검색하기";
-	char * menu2 = "ID로 검색하기";
-	char * menu3 = "메인화면으로 돌아가기";
+	char * menu1 = "search by name";
+	char * menu2 = "search by ID";
+	char * menu3 = "return to main menu";
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	now += upOrDown;
 
-	printf("\n\n\n");
 	if (now <= -1)
 	{
 		now = 0;
@@ -171,27 +160,162 @@ member * searchId(int id, member * compare, member * leafNull)
 }
 
 
+/* 수정하기 */
+int selectModify(member* searchPerson, rootPointer* RP, member* leafNull)
+{
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	char choice = 0;
+	int userInput = 0;
+	char * upperDeco = "○─────────────────────────────○";
+
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	system("cls");
+
+	showMember(searchPerson);
+
+	modifyUI(0, searchPerson);
+	 
+	if (GetAsyncKeyState(VK_UP)) Sleep(100);
+	if (GetAsyncKeyState(VK_DOWN))Sleep(100);
+	if (GetAsyncKeyState(VK_RETURN))Sleep(100);
+
+	while (1)
+	{
+		if (GetAsyncKeyState(VK_DOWN))
+		{
+			userInput = modifyUI(1, searchPerson);
+			Sleep(200);
+		}
+		else if (GetAsyncKeyState(VK_UP))
+		{
+			userInput = modifyUI(-1, searchPerson);
+			Sleep(200);
+		}
+		else if (GetAsyncKeyState(VK_RETURN))
+		{
+			Sleep(200);
+			searchUI(-80);
+			getchar();
+			return userInput;
+		}
+	}
+}
+
+int modifyUI(int upOrDown, member* searchPerson)
+{
+	HANDLE hConsole;
+	static int now = 0;
+	char * menu1 = "name";
+	char * menu2 = "address";
+	char * menu3 = "phone";
+	char * upperDeco = "○─────────────────────────────○";
+
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	now += upOrDown;
+
+	if (now <= -1)
+	{
+		now = 0;
+		system("cls");
+	}
+	else if (now >= 3)
+	{
+		now = 2;
+		system("cls");
+	}
+
+	system("cls");
+	
+	
+	printf("\n\n\n");
+	showMember(searchPerson);
+	if (now == 0){
+		centerJustIndent(strlen(menu1), hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("%s\n\n", menu1);
+	}
+	else{
+		centerJustIndent(strlen(menu1), hConsole);
+		printf("%s\n\n", menu1);
+	}
+
+	if (now == 1){
+		centerJustIndent(strlen(menu2), hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("%s\n\n", menu2);
+		SetConsoleTextAttribute(hConsole, 14);
+	}
+	else{
+		centerJustIndent(strlen(menu2), hConsole);
+		SetConsoleTextAttribute(hConsole, 15);
+		printf("%s\n\n", menu2);
+	}
+	if (now == 2){
+		centerJustIndent(strlen(menu3), hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("%s\n\n", menu3);
+		SetConsoleTextAttribute(hConsole, 14);
+	}
+	else{
+		centerJustIndent(strlen(menu3), hConsole);
+		SetConsoleTextAttribute(hConsole, 15);
+		printf("%s\n\n", menu3);
+	}
+	printf("\n");
+
+	return now;
+}
+
+void showMember(member* searchPerson)
+{
+	char * upperDeco = "○─────────────────────────────○";
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("%s\n", upperDeco);
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("│%-9d%-9s%-25s\t%s│\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("%s", upperDeco);
+}
+
+
 /*이름으로 찾기*/
 
 int find_byName(rootPointer RP, member * leafNull)
 {
+	HANDLE hConsole;
 	member* searchPerson = addNode();
 	int userInput = 0;
+	char * upperDeco = "○─────────────────────────────○";
 	char name[32];
 
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (GetAsyncKeyState(VK_UP)) Sleep(100);
+	if (GetAsyncKeyState(VK_DOWN))Sleep(100);
+	if (GetAsyncKeyState(VK_RETURN))Sleep(100);
+
+
 	system("cls");
-	printf("\n\n\n\n\n");
-	printf("검색할 회원의 이름을 입력하세요\n");
-	printf("───────────────────────────────\n\n");
-	printf("이   름: ");
+	printf("\n\n\n\n\n\n");
+
+	centerJustIndent(40, hConsole);
+	printf("name: ");
 	fflush(stdin);
 	gets(name);
+	printf("\n\n");
 
 	searchPerson = searchName(name, RP.rootNodeN, leafNull);
 
 	if (searchPerson == leafNull) //회원검색했을 때 결과가 없는경우
 	{
-		printf("없는 회원입니다.\n");
+		printf("error: cannot find the name.\n");
 		userInput = functionKeyInput_WhenSearchResultVoid();
 		switch (userInput){
 		case (2) : //F1 : 회원검색 다시하기
@@ -201,8 +325,7 @@ int find_byName(rootPointer RP, member * leafNull)
 		}
 	}
 
-
-	printf("%-9d%-9s%-25s\t%s\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
+	showMember(searchPerson);
 
 	userInput = functionKeyInput();
 	switch (userInput){
@@ -216,118 +339,111 @@ int find_byName(rootPointer RP, member * leafNull)
 		userInput = deleteUI(searchPerson, &RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		userInput = askModify_byName(searchPerson, &RP, leafNull);
-		return userInput;
+		modify_byName(searchPerson, &RP, leafNull);
+		break;
 	case (-1) : //F10 : 메인메뉴
 			return userInput;
 	}
 
 }
 
-int askModify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
-{
-	HANDLE hConsole;
-	char choice = 0;
-	int userInput = -1;
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	system("cls");
-
-	printf("\n\n\n\n");
-	centerJustIndent(60, hConsole);
-	printf("%-9d%-9s%-25s\t%s\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
-
-	modify_byName(searchPerson, RP, leafNull);
-
-	while (1){
-		centerJustIndent(60, hConsole);
-		printf("계속 수정하시겠습니까? (y/n) ");
-		scanf("%c", &choice);
-		if (choice == 'y'){
-			modify_byName(searchPerson, RP, leafNull);
-		}
-
-		userInput = functionKeyInput_WhenSearchResultVoid();
-		switch (userInput){
-		case (2) : //F1 : 회원검색 다시하기
-			return userInput;
-		case (-1) : //F10 : 메인메뉴
-			return userInput;
-		}
-	}
-
-}
-
-
 void modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 {
 	HANDLE hConsole;
+	int userInput = 0;
+	member* searchedPerson;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	int choice = 0;
-	member* searchPerson_Id;
-	printf("\n\n어떤 정보를 변경하시겠습니까?\n1. 이    름\t2. 주    소\t3. 전화번호\n");
-	scanf("%d", &choice);
+
+	userInput = selectModify(searchPerson, RP, leafNull);
+	system("cls");
+
+	printf("\n\n");
+	showMember(searchPerson);
+	printf("\n\n");
 	fflush(stdin);
 
-	if (choice == 1){
+	if (userInput == 0){
+		fflush(stdin);
 		centerJustIndent(60, hConsole);
-		printf("이   름: ");
+		printf("name: ");
 		scanf("%s", searchPerson->name);
-		searchPerson_Id = searchId(searchPerson->id, RP->rootNode, leafNull);
-		strcpy(searchPerson_Id->name, searchPerson->name);
-		fflush(stdin);
+		searchedPerson = searchId(searchPerson->id, RP->rootNode, leafNull);
+		strcpy(searchedPerson->name, searchPerson->name);
 	}
-	else if (choice == 2){
+	else if (userInput == 1){
+		fflush(stdin);
 		centerJustIndent(60, hConsole);
-		printf("주   소: ");
+		printf("address: ");
+		fflush(stdin);
 		scanf("%s", searchPerson->address);
-		searchPerson_Id = searchId(searchPerson->id, RP->rootNode, leafNull);
-		strcpy(searchPerson_Id->address, searchPerson->address);
-		fflush(stdin);
+		searchedPerson = searchId(searchPerson->id, RP->rootNode, leafNull);
+		strcpy(searchedPerson->address, searchPerson->address);
 	}
-	else if (choice == 3){
-		printf("전화번호: ");
+	else{
+		fflush(stdin);
+		centerJustIndent(60, hConsole);
+		printf("phone: ");
 		scanf("%s", searchPerson->phone);
-
-		phoneCheck(searchPerson);
-
-		searchPerson_Id = searchId(searchPerson->id, RP->rootNode, leafNull);
-		strcpy(searchPerson_Id->phone, searchPerson->phone);
-		fflush(stdin);
+		searchedPerson = searchId(searchPerson->id, RP->rootNode, leafNull);
+		strcpy(searchedPerson->phone, searchPerson->phone);
 	}
-	else
-	{
-		return;
+
+	printf("\n\n");
+	showMember(searchPerson);
+
+
+	userInput = functionKeyInput();
+	switch (userInput){
+	case (0) : //F1 : 회원보기
+		return userInput;
+	case (1) : //F2 : 회원등록
+		return userInput;
+	case (2) :  //F5 : 회원검색
+		return userInput;
+	case (6) : //F3 : 회원삭제
+		userInput = deleteUI(searchPerson, &RP, leafNull);
+		return userInput;
+	case (7) : //F4 : 회원정보수정
+		modify_byName(searchPerson, RP, leafNull);
+		break;
+	case (-1) : //F10 : 메인메뉴
+		return userInput;
 	}
-	return;
+
 }
 
 
-
-
-
 /*회원번호로 찾기*/
-int askModify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
+
+
+int find_byId(rootPointer RP, member * leafNull)
 {
 	HANDLE hConsole;
-	char choice = 0;
-	int userInput = -1;
+	member* searchPerson = addNode();
+	int userInput = 0;
+	char * upperDeco = "○─────────────────────────────○";
+	int id =0;
+
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (GetAsyncKeyState(VK_UP)) Sleep(100);
+	if (GetAsyncKeyState(VK_DOWN))Sleep(100);
+	if (GetAsyncKeyState(VK_RETURN))Sleep(100);
+
+
 	system("cls");
+	printf("\n\n\n\n\n\n");
 
-	printf("\n\n\n\n");
-	centerJustIndent(60, hConsole);
-	printf("%-9d%-9s%-25s\t%s\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
+	centerJustIndent(40, hConsole);
+	printf("id: ");
+	fflush(stdin);
+	scanf("%d", &id);
+	printf("\n\n");
 
-	modify_byId(searchPerson, RP, leafNull);
+	searchPerson = searchId(id, RP.rootNode, leafNull);
 
-	while (1){
-		centerJustIndent(60, hConsole);
-		printf("계속 수정하시겠습니까? (y/n) ");
-		scanf("%c", &choice);
-		if (choice == 'y'){
-			modify_byId(searchPerson, RP, leafNull);
-		}
-
+	if (searchPerson == leafNull) //회원검색했을 때 결과가 없는경우
+	{
+		printf("error: cannot find the name.\n");
 		userInput = functionKeyInput_WhenSearchResultVoid();
 		switch (userInput){
 		case (2) : //F1 : 회원검색 다시하기
@@ -335,83 +451,73 @@ int askModify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 		case (-1) : //F10 : 메인메뉴
 			return userInput;
 		}
+	}
+
+	showMember(searchPerson);
+
+	userInput = functionKeyInput();
+	switch (userInput){
+	case (0) : //F1 : 회원보기
+		return userInput;
+	case (1) : //F2 : 회원등록
+		return userInput;
+	case (2) :  //F5 : 회원검색
+		return userInput;
+	case (6) : //F3 : 회원삭제
+		userInput = deleteUI(searchPerson, &RP, leafNull);
+		return userInput;
+	case (7) : //F4 : 회원정보수정
+		modify_byId(searchPerson, &RP, leafNull);
+		break;
+	case (-1) : //F10 : 메인메뉴
+		return userInput;
 	}
 }
 
 void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 {
 	HANDLE hConsole;
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	int choice = 0;
-	member* searchPerson_Name;
-	printf("\n\n어떤 정보를 변경하시겠습니까?\n1. 이    름\t2. 주    소\t3. 전화번호\n");
-	scanf("%d", &choice);
-	fflush(stdin);
-
-	if (choice == 1){
-		centerJustIndent(60, hConsole);
-		printf("이   름: ");
-		scanf("%s", searchPerson->name);
-		searchPerson_Name = searchId(searchPerson->id, RP->rootNodeN, leafNull);
-		strcpy(searchPerson_Name->name, searchPerson->name);
-		fflush(stdin);
-	}
-	else if (choice == 2){
-		centerJustIndent(60, hConsole);
-		printf("주   소: ");
-		scanf("%s", searchPerson->address);
-		searchPerson_Name = searchId(searchPerson->id, RP->rootNodeN, leafNull);
-		strcpy(searchPerson_Name->name, searchPerson->name);
-		fflush(stdin);
-	}
-	else if (choice == 3){
-		printf("전화번호: ");
-		scanf("%s", searchPerson->phone);
-		
-		phoneCheck(searchPerson);
-
-		searchPerson_Name = searchId(searchPerson->id, RP->rootNodeN, leafNull);
-		strcpy(searchPerson_Name->name, searchPerson->name);
-		fflush(stdin);
-	}
-	else
-	{
-		return;
-	}
-	return;
-}
-
-int find_byId(rootPointer RP, member * leafNull)
-{
-	int id;
 	int userInput = 0;
-	member* searchPerson = addNode();
-	HANDLE hConsole;
+	member* searchedPerson;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
+	userInput = selectModify(searchPerson, RP, leafNull);
 	system("cls");
-	printf("\n\n\n\n\n");
-	printf("검색할 회원의 회원번호를 입력하세요\n");
-	printf("───────────────────────────────\n\n");
-	printf("회원번호: ");
+
+	printf("\n\n");
+	showMember(searchPerson);
+	printf("\n\n");
 	fflush(stdin);
-	scanf("%d", &id);
 
-	searchPerson = searchId(id, RP.rootNode, leafNull);
-
-	if (searchPerson == leafNull)
-	{
-		printf("없는 회원번호입니다.\n");
-		userInput = functionKeyInput_WhenSearchResultVoid();
-		switch (userInput){
-		case (2) : //F1 : 회원검색 다시하기
-			return userInput;
-		case (-1) : //F10 : 메인메뉴
-			return userInput;
-		}
-		return userInput;
+	if (userInput == 0){
+		fflush(stdin);
+		centerJustIndent(60, hConsole);
+		printf("name: ");
+		scanf("%s", searchPerson->name);
+		searchedPerson = searchId(searchPerson->id, RP->rootNodeN, leafNull);
+		strcpy(searchedPerson->name, searchPerson->name);
 	}
-	printf("%-9d%-9s%-25s\t%s\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
+	else if (userInput == 1){
+		fflush(stdin);
+		centerJustIndent(60, hConsole);
+		printf("address: ");
+		fflush(stdin);
+		scanf("%s", searchPerson->address);
+		searchedPerson = searchId(searchPerson->id, RP->rootNodeN, leafNull);
+		strcpy(searchedPerson->address, searchPerson->address);
+	}
+	else{
+		fflush(stdin);
+		centerJustIndent(60, hConsole);
+		printf("phone: ");
+		scanf("%s", searchPerson->phone);
+		searchedPerson = searchId(searchPerson->id, RP->rootNodeN, leafNull);
+		strcpy(searchedPerson->phone, searchPerson->phone);
+	}
+
+	printf("\n\n");
+	showMember(searchPerson);
+
 	userInput = functionKeyInput();
 	switch (userInput){
 	case (0) : //F1 : 회원보기
@@ -424,16 +530,13 @@ int find_byId(rootPointer RP, member * leafNull)
 		userInput = deleteUI(searchPerson, &RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		userInput = askModify_byId(searchPerson, &RP, leafNull);
-		return userInput;
+		modify_byId(searchPerson, RP, leafNull);
+		break;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;
 	}
+
 }
-
-
-
-
 
 /* 3. 회원 삭제하기 */
 int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
@@ -502,46 +605,3 @@ int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 }
 
 
-/*전화번호 예외처리*/
-void phoneCheck(member* node)
-{
-	int i = 0;
-	HANDLE hConsole;
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	
-	while (node->phone[i]){
-
-		if(('0' > node->phone[i] || node->phone[i] > '9')&&(node->phone[i] != '-'))
-		{
-			
-				system("cls");
-				printf("\n\n\n\n\n");
-				centerJustIndent(60, hConsole);
-				SetConsoleTextAttribute(hConsole, 14);
-				printf("추가하실 회원의 정보를 입력하세요\n");
-				centerJustIndent(60, hConsole);
-				SetConsoleTextAttribute(hConsole, 14);
-				printf("───────────────────────────────\n");
-				printf("숫자만 입력하세요.\n");
-
-				centerJustIndent(60, hConsole);
-				printf("이    름: ");
-				printf("%s", node->name);
-
-				printf("\n\n");
-				centerJustIndent(60, hConsole);
-				printf("주    소: ");
-				printf("%s", node->address);
-				printf("\n\n");
-
-				centerJustIndent(60, hConsole);
-				printf("전화번호: ");
-				scanf("%s", &(node->phone));
-				phoneCheck(node);
-
-		}
-		i++;
-	}
-	return;
-
-}
