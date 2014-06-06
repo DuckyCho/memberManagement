@@ -28,7 +28,7 @@ int main(void)
 			break;
 		case (2) : //회원검색하기
 			system("cls");
-			userInput = selectSearch(RP, leafNull);
+			userInput = selectSearch(&RP, leafNull);
 			break;
 		case (3) : //저장하기
 			system("cls");

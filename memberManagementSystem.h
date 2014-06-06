@@ -82,6 +82,7 @@ void inputData(member * node, member * leafNull);
 int searchBiggestId(member *, member *);
 void phoneCheck(member*);
 void nameCheck(member*);
+void phoneCheck_modify(member* node);
 
 /* 3. 회원 삭제하기 */
 int deleteUI(member*, rootPointer *, member *);
@@ -91,16 +92,16 @@ int deleteNUI(member*, rootPointer *, member *);
 void showMember(member* searchPerson);
 member* searchName(char*, member *, member *);
 member* searchId(int, member *, member *);
-int selectSearch(rootPointer, member *);
+int selectSearch(rootPointer*, member *);
 int searchUI(int);
 
 //이름으로 검색
-int find_byName(rootPointer , member * );
-void modify_byName(member* , rootPointer* , member* );
+int find_byName(rootPointer* , member * );
+int modify_byName(member* , rootPointer* , member* );
 
 //회원번호로 검색
-int find_byId(rootPointer , member * );
-void modify_byId(member* , rootPointer* RP, member* );
+int find_byId(rootPointer* , member * );
+int modify_byId(member* , rootPointer* RP, member* );
 
 /* 6. 저장하기*/
 int saveData(rootPointer *, member *);

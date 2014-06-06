@@ -196,7 +196,7 @@ void phoneCheck(member* node)
 	return;
 }
 
-/*
+
 void phoneCheck_modify(member* node)
 {
 	int count = 0;
@@ -219,26 +219,16 @@ void phoneCheck_modify(member* node)
 			printf("the phone number is not properly formatted.\n\n");
 
 			centerJustIndent(50, hConsole);
-			printf("name: ");
-			printf("%s", node->name);
-			printf("\n\n");
-
-			centerJustIndent(50, hConsole);
-			printf("address: ");
-			printf("%s", node->address);
-			printf("\n\n");
-
-			centerJustIndent(50, hConsole);
 			printf("phone: ");
 			scanf("%s", &(node->phone));
-			phoneCheck(node);
+			phoneCheck_modify(node);
 			count = 0;
 		}
 		count++;
 	}
 
 	return;
-	*/
+}
 
 
 /*이름 예외처리*/
@@ -276,6 +266,9 @@ void nameCheck(member* node)
 	}
 	return;
 }
+
+
+
 
 int searchBiggestId(member * node, member* leafNull)
 {
