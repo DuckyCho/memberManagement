@@ -20,7 +20,7 @@ int main(void)
 			break;
 		case (0) :
 			system("cls"); //회원보기
-			userInput = printList(RP.rootNode, leafNull);
+			userInput = printList(RP.rootNodeN, leafNull);
 			break;
 		case (1) : //회원등록하기
 			system("cls");

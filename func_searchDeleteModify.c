@@ -232,12 +232,12 @@ int modifyUI(int upOrDown, member* searchPerson)
 	printf("\n\n\n");
 	showMember(searchPerson);
 	if (now == 0){
-		centerJustIndent(strlen(menu1), hConsole);
+		centerJustIndent(strlen(menu1)-18, hConsole);
 		SetConsoleTextAttribute(hConsole, 252);
 		printf("%s\n\n", menu1);
 	}
 	else{
-		centerJustIndent(strlen(menu1), hConsole);
+		centerJustIndent(strlen(menu1)-18, hConsole);
 		printf("%s\n\n", menu1);
 	}
 
@@ -336,7 +336,7 @@ int find_byName(rootPointer RP, member * leafNull)
 	case (2) :  //F5 : 회원검색
 		return userInput;
 	case (6) : //F3 : 회원삭제
-		userInput = deleteUI(searchPerson, &RP, leafNull);
+		userInput = deleteNUI(searchPerson, &RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
 		modify_byName(searchPerson, &RP, leafNull);
@@ -402,7 +402,7 @@ void modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 	case (2) :  //F5 : 회원검색
 		return userInput;
 	case (6) : //F3 : 회원삭제
-		userInput = deleteUI(searchPerson, &RP, leafNull);
+		userInput = deleteNUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
 		modify_byName(searchPerson, RP, leafNull);
@@ -540,9 +540,12 @@ void modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 }
 
 /* 3. 회원 삭제하기 */
+
+//id로 검색하기에서 삭제하기를 눌렀을 때
 int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 {
 	int userInput = NULL;
+	member * nameTreeNode;
 	HANDLE hConsole;
 	char * upperDeco = "○─────────────────────────────○";
 	
@@ -581,7 +584,10 @@ int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 			return userInput;
 		}
 		else if (userInput == 13) {
+			nameTreeNode = searchName(gonnaBeDeletedNode->name, RP->rootNodeN, leafNull);
+			replaceNodeN(nameTreeNode, RP, leafNull);
 			replaceNode(gonnaBeDeletedNode, RP, leafNull);
+			
 			centerJustIndent(18, hConsole);
 			printf(".");
 			Sleep(100);
@@ -603,6 +609,77 @@ int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 
 		userInput = functionKeyInput_WhenSearchResultVoid();
 		return userInput;
+}
+
+
+//이름으로 검색하기에서 삭제하기를 눌렀을 때
+int deleteNUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
+{
+	int userInput = NULL;
+	member * idTreeNode;
+	HANDLE hConsole;
+	char * upperDeco = "○─────────────────────────────○";
+
+
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	system("cls");
+	printf("\n");
+
+	centerJustIndent(15, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("Sure to delete??\n\n\n\n\n\n\n\n\n");
+
+
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("%s\n", upperDeco);
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("│%-9d%-9s%-25s\t%s│\n", gonnaBeDeletedNode->id, gonnaBeDeletedNode->name, gonnaBeDeletedNode->address, gonnaBeDeletedNode->phone);
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("%s\n\n\n\n\n\n\n\n", upperDeco);
+
+	centerJustIndent(32, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("  cancel ESC    delete ENTER  \n");
+	SetConsoleTextAttribute(hConsole, 13);
+
+	while (1)
+	{
+		fflush(stdin);
+		userInput = getch();
+		if (userInput == 27) {
+			userInput = -1;
+			return userInput;
+		}
+		else if (userInput == 13) {
+			idTreeNode = searchId(gonnaBeDeletedNode->id, RP->rootNode, leafNull);
+			replaceNode(idTreeNode, RP, leafNull);
+			replaceNodeN(gonnaBeDeletedNode, RP, leafNull);
+
+			centerJustIndent(18, hConsole);
+			printf(".");
+			Sleep(100);
+			printf(".");
+			Sleep(100);
+			printf(".");
+			Sleep(100);
+			printf(".");
+			Sleep(100);
+			printf("Delete done!!");
+			centerJustIndent(15, hConsole);
+			break;
+		}
+		else{
+			printf("\a");
+			continue;
+		}
+	}
+
+	userInput = functionKeyInput_WhenSearchResultVoid();
+	return userInput;
 }
 
 
