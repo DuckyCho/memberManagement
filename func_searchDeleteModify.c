@@ -367,6 +367,7 @@ void modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 		centerJustIndent(60, hConsole);
 		printf("name: ");
 		scanf("%s", searchPerson->name);
+		nameCheck(searchPerson);
 		searchedPerson = searchId(searchPerson->id, RP->rootNode, leafNull);
 		strcpy(searchedPerson->name, searchPerson->name);
 	}

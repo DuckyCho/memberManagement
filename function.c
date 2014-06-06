@@ -196,6 +196,49 @@ void phoneCheck(member* node)
 	return;
 }
 
+/*
+void phoneCheck_modify(member* node)
+{
+	int count = 0;
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	while (node->phone[count]){
+
+		if (('0' > node->phone[count] || node->phone[count] > '9') && (node->phone[count] != '-') || (count > 15))
+		{
+
+			system("cls");
+			printf("\n");
+			centerJustIndent(35, hConsole);
+			SetConsoleTextAttribute(hConsole, 252);
+			printf("please insert membership information.\n\n");
+
+			centerJustIndent(41, hConsole);
+			SetConsoleTextAttribute(hConsole, 14);
+			printf("the phone number is not properly formatted.\n\n");
+
+			centerJustIndent(50, hConsole);
+			printf("name: ");
+			printf("%s", node->name);
+			printf("\n\n");
+
+			centerJustIndent(50, hConsole);
+			printf("address: ");
+			printf("%s", node->address);
+			printf("\n\n");
+
+			centerJustIndent(50, hConsole);
+			printf("phone: ");
+			scanf("%s", &(node->phone));
+			phoneCheck(node);
+			count = 0;
+		}
+		count++;
+	}
+
+	return;
+	*/
 
 
 /*이름 예외처리*/

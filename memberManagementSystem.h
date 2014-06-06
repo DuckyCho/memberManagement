@@ -3,8 +3,6 @@
 #include <string.h>
 #include <math.h>
 #include <Windows.h>
-
-
 #define basicStringSize 80
 #define black 0
 #define red 1
