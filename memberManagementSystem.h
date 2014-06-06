@@ -64,6 +64,16 @@ void deleteNode_step2(member *, rootPointer *, member *);
 void deleteNode_step3(member *, rootPointer *, member *);
 void deleteNode_step4(member *, rootPointer *, member *);
 
+
+void replaceNodeN(member *, rootPointer *, member *);
+void deleteNodeN_step1(member *, rootPointer *, member *);
+void deleteNodeN_step2(member *, rootPointer *, member *);
+void deleteNodeN_step3(member *, rootPointer *, member *);
+void deleteNodeN_step4(member *, rootPointer *, member *);
+void rotateRightN(member*, member *, rootPointer *);
+void rotateLeftN(member*, member *, rootPointer *);
+
+
 /* 1. 회원명단 보기 */
 void readTree(member *, member *, void(*)(member *));
 int printList(member *, member*);
@@ -77,6 +87,7 @@ void nameCheck(member*);
 
 /* 3. 회원 삭제하기 */
 int deleteUI(member*, rootPointer *, member *);
+int deleteNUI(member*, rootPointer *, member *);
 
 /* 4. 회원정보 검색/수정/삭제*/
 void showMember(member* searchPerson);
