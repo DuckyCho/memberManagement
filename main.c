@@ -11,6 +11,8 @@ int main(void)
 	
 	leafNull = makeTree(&RP, leafNull);
 	leafNull = makeTree_Name(&RP, leafNull);
+	
+	PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 
 	while (1)
 	{
