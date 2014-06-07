@@ -116,8 +116,8 @@ void replaceNode(member * node, rootPointer * RP, member * leafNull)
 		//01-00. successor가 자식노드가 없을때, succeessor delete시작
 		if (successor->left == leafNull && successor->right == leafNull)
 		{
-
 			deleteNode_step1(successor, RP, leafNull);
+		
 			if (successor->father->left == successor)
 			{
 				successor->father->left = leafNull;

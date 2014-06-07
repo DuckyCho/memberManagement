@@ -97,6 +97,7 @@ member* searchName(char*, member *, member *);
 member* searchId(int, member *, member *);
 int selectSearch(rootPointer*, member *);
 int searchUI(int);
+int modifyUI(int, member*);
 
 //이름으로 검색
 int find_byName(rootPointer* , member * );

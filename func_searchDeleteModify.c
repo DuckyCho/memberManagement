@@ -349,10 +349,10 @@ int find_byName(rootPointer* RP, member * leafNull)
 		userInput = selectSearch(RP, leafNull);
 		return userInput;
 	case (6) : //F3 : 회원삭제
-		userInput = deleteUI(searchPerson, &RP, leafNull);
+		userInput = deleteNUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		modify_byId(searchPerson, &RP, leafNull);
+		modify_byId(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;
@@ -426,10 +426,10 @@ int modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 		userInput = selectSearch(RP, leafNull);
 		return userInput;
 	case (6) : //F3 : 회원삭제
-		userInput = deleteUI(searchPerson, &RP, leafNull);
+		userInput = deleteNUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		modify_byId(searchPerson, &RP, leafNull);
+		modify_byId(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;
@@ -501,10 +501,10 @@ int find_byId(rootPointer* RP, member * leafNull)
 		userInput = selectSearch(RP, leafNull);
 		return userInput;
 	case (6) : //F3 : 회원삭제
-		userInput = deleteUI(searchPerson, &RP, leafNull);
+		userInput = deleteUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		modify_byId(searchPerson, &RP, leafNull);
+		modify_byId(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;
@@ -579,10 +579,10 @@ int modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 		userInput = selectSearch(RP, leafNull);
 		return userInput;
 	case (6) : //F3 : 회원삭제
-		userInput = deleteUI(searchPerson, &RP, leafNull);
+		userInput = deleteUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		modify_byId(searchPerson, &RP, leafNull);
+		modify_byId(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;

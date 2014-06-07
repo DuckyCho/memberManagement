@@ -13,6 +13,7 @@ void attachTree(member * node, rootPointer * RP, member *leafNull)
 {
 	node->father = searchMyFather(node, RP->rootNode, leafNull);
 	node->color = red;
+	
 	if (node->father == NULL){
 	}
 	else if ((node->father)->id > node->id)

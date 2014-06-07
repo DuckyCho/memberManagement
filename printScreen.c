@@ -16,7 +16,7 @@ int functionKeyInput_WhenSearchResultVoid(void)
 	SetConsoleTextAttribute(hConsole, 252);
 	printf(" %s  %s ", f1, f10);
 	SetConsoleTextAttribute(hConsole, 14);
-	
+	fflush(stdin);
 	while (1)
 	{
 		userInput = getch();
@@ -65,6 +65,8 @@ int functionKeyInput(void)
 	printf("%s  %s  %s  ", f1, f2, f3);
 	printf("%s  %s  %s", f4, f5, f10);
 	SetConsoleTextAttribute(hConsole, 14);
+
+	fflush(stdin);
 	while (1)
 	{
 		userInput = getch();
