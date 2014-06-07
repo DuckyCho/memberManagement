@@ -195,7 +195,7 @@ int selectModify(member* searchPerson, rootPointer* RP, member* leafNull)
 		else if (GetAsyncKeyState(VK_RETURN))
 		{
 			Sleep(200);
-			searchUI(-80);
+			modifyUI(-80,searchPerson);
 			getchar();
 			return userInput;
 		}
@@ -352,11 +352,12 @@ int find_byName(rootPointer* RP, member * leafNull)
 		userInput = deleteNUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		modify_byId(searchPerson, RP, leafNull);
+		userInput = modify_byId(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;
 	}
+	return -1;
 }
 
 int modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
@@ -429,12 +430,12 @@ int modify_byName(member* searchPerson, rootPointer* RP, member* leafNull)
 		userInput = deleteNUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		modify_byId(searchPerson, RP, leafNull);
+		userInput = modify_byId(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;
 	}
-
+	return -1;
 }
 
 
@@ -504,11 +505,12 @@ int find_byId(rootPointer* RP, member * leafNull)
 		userInput = deleteUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		modify_byId(searchPerson, RP, leafNull);
+		userInput = modify_byId(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;
 	}
+	return -1;
 }
 
 int modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
@@ -582,12 +584,12 @@ int modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 		userInput = deleteUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
-		modify_byId(searchPerson, RP, leafNull);
+		userInput = modify_byId(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
 		return userInput;
 	}
-
+	return -1;
 }
 
 /* 3. 회원 삭제하기 */
@@ -595,7 +597,7 @@ int modify_byId(member* searchPerson, rootPointer* RP, member* leafNull)
 //id로 검색하기에서 삭제하기를 눌렀을 때
 int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 {
-	int userInput = NULL;
+	int userInput = 0;
 	member * nameTreeNode;
 	HANDLE hConsole;
 	char * upperDeco = "○─────────────────────────────○";
@@ -666,7 +668,7 @@ int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 //이름으로 검색하기에서 삭제하기를 눌렀을 때
 int deleteNUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 {
-	int userInput = NULL;
+	int userInput = 0;
 	member * idTreeNode;
 	HANDLE hConsole;
 	char * upperDeco = "○─────────────────────────────○";
