@@ -196,7 +196,7 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 			replaceNode(searchPerson, RP, leafNull);
 			tmp->otherTreePointer = addNode();
 			tmp->otherTreePointer->treeType = nameTree;
-			tmp->otherTreePointer->otherTreePointer = searchPerson;
+			tmp->otherTreePointer->otherTreePointer = tmp;
 			nodeCpy(tmp, tmp->otherTreePointer);
 			tmp->otherTreePointer->left = leafNull;
 			tmp->otherTreePointer->right = leafNull;
