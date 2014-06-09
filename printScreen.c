@@ -207,16 +207,16 @@ int printMain(void)
 		if (GetAsyncKeyState(VK_DOWN))
 		{
 			userInput = mainUI(1);
-			Sleep(100);
+			Sleep(90);
 		}
 		else if (GetAsyncKeyState(VK_UP))
 		{
 			userInput = mainUI(-1);
-			Sleep(100);
+			Sleep(90);
 		}
 		else if (GetAsyncKeyState(VK_RETURN))
 		{
-			Sleep(100);
+			Sleep(90);
 			mainUI(-80);
 			getchar();
 			return userInput;
