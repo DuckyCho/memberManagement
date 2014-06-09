@@ -12,6 +12,7 @@
 
 #define basicStringSize 80
 #define mem_tStringSize 32
+#define consoleRow 20
 #define black 0
 #define red 1
 #define initialValue 100
@@ -38,10 +39,22 @@ typedef struct mem_t {
 	int treeType;
 } member;
 
+typedef struct idxHead_t{
+	struct index_t * indexHead;
+} idxHead;
+
+typedef struct index_t{
+	struct mem_t * value;
+	struct index_t * prev;
+	struct index_t * next;
+} index;
+
 
 /* 1. 회원명단 보기 */
-void readTree(member *, member *, void(*)(member *));
+index * readTree(member *, member *, void(*)(member *), int *);
 int printList(member *, member*);
+index * printList_printf(index *, idxHead *);
+index * addIdx(void);
 
 /* 2. 회원 등록하기 */
 void removeNewLine(char * );

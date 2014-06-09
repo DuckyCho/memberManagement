@@ -1,6 +1,8 @@
 #include "memberManagementSystem.h"
 #include "redBlackFunctions.h"
 
+
+
 int main(void)
 
 {
@@ -12,8 +14,7 @@ int main(void)
 	leafNull->color = black;
 	
 	leafNull = makeTree(&RP, leafNull);
-	//leafNull = makeTree_Name(&RP, leafNull);
-	
+
 	PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 
 	while (1)
@@ -23,7 +24,7 @@ int main(void)
 			userInput = printMain();
 			break;
 		case (0) :
-			system("cls"); //회원보기
+			system("cls"); //id 순으로 회원보기
 			userInput = printList(RP.rootNode, leafNull);
 			break;
 		case (1) : //회원등록하기
@@ -44,6 +45,10 @@ int main(void)
 		case (5) : //credit
 			system("cls");
 			userInput = credit();
+		case (6) : //이름순으로 회원보기
+			system("cls");
+			userInput = printList(RP.rootNodeN, leafNull);
+			break;
 		}
 	}
 

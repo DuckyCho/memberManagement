@@ -1,5 +1,74 @@
 #include "memberManagementSystem.h"
 #include "redBlackFunctions.h"
+int functionKeyInput_memberListPrint(void)
+{
+	static int status = 0;
+	int userInput;
+	char * menu = "← 이전  다음 →\ttab이름순으로정렬 F1회원검색  F10 메인메뉴";
+	char * menu2 = "← 이전  다음 →\ttab회원번호순으로정렬 F1회원검색  F10 메인메뉴";
+	
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("\n\n");
+	
+	if (status == 0){
+		centerJustIndent(strlen(menu)+6, hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf(" %s", menu);
+	}
+	else{
+		centerJustIndent(strlen(menu2)+6, hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("%s", menu2);
+	}
+	SetConsoleTextAttribute(hConsole, 14);
+	fflush(stdin);
+	while (1)
+	{
+		userInput = getch();
+
+		if (userInput == 59) //F1 : 회원검색
+		{
+			return 2;
+		}
+		else if (userInput == 68) //F10 : 메인메뉴
+		{
+			return -1;
+		}
+		else if (userInput == 75) //←키를 누른경우
+		{
+			return 3;
+		}
+		else if (userInput == 77) //→키를 누른경우
+		{
+			return 4;
+		}
+		else if (userInput == 9/*tab*/) //tab키를 누른경우
+		{
+			if (status == 0){
+				status = 1;
+				return 6;
+			}
+			else{
+				status = 0;
+				return 0;
+			}
+		}
+		else if (userInput == 0 || userInput == 224)
+		{
+			continue;
+		}
+		else
+		{
+			printf("\a");
+		}
+	}
+
+}
+
+
 //회원 검색 결과가 없을 때 입력받기 화면
 
 int functionKeyInput_WhenSearchResultVoid(void)
