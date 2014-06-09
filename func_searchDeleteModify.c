@@ -73,12 +73,15 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	case(0) :
 		printf("name: ");
 		fflush(stdin);
-		gets(name);
+		fgets(name, mem_tStringSize, stdin);
+		removeNewLine(name);
+		fflush(stdin);
 		break;
 	case(1) :
 		printf("ID: ");
 		fflush(stdin);
 		scanf("%d", &idInput);
+		fflush(stdin);
 		break;
 	}
 	fflush(stdin);
@@ -146,7 +149,10 @@ void nodeCpy(member * original, member * destination)
 	strcpy(destination->address, original->address);
 }
 
-
+void removeNewLine(char * str)
+{
+	str[strlen(str)-1] = '\0';
+}
 
 int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 {
@@ -166,7 +172,8 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 		centerJustIndent(60, hConsole);
 		printf("name: ");
 		fflush(stdin);
-		scanf("%s", searchPerson->name);
+		fgets(searchPerson->name, mem_tStringSize, stdin);
+		removeNewLine(searchPerson->name);
 		fflush(stdin);
 		nameCheck(searchPerson);
 		
@@ -175,6 +182,8 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 			replaceNode(searchPerson->otherTreePointer, RP, leafNull);
 			searchPerson->otherTreePointer = addNode();
 			nodeCpy(searchPerson, searchPerson->otherTreePointer);
+			searchPerson->otherTreePointer->treeType = nameTree;
+			searchPerson->otherTreePointer->otherTreePointer = searchPerson;
 			searchPerson->otherTreePointer->left = leafNull;
 			searchPerson->otherTreePointer->right = leafNull;
 			attachTreeN(searchPerson->otherTreePointer, RP, leafNull);
@@ -186,6 +195,8 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 			tmp = searchPerson->otherTreePointer;
 			replaceNode(searchPerson, RP, leafNull);
 			tmp->otherTreePointer = addNode();
+			tmp->otherTreePointer->treeType = nameTree;
+			tmp->otherTreePointer->otherTreePointer = searchPerson;
 			nodeCpy(tmp, tmp->otherTreePointer);
 			tmp->otherTreePointer->left = leafNull;
 			tmp->otherTreePointer->right = leafNull;
@@ -198,15 +209,17 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 		centerJustIndent(60, hConsole);
 		fflush(stdin);
 		printf("address: ");
+		fgets(searchPerson->address, mem_tStringSize, stdin);
+		removeNewLine(searchPerson->address);
 		fflush(stdin);
-		scanf("%s", searchPerson->address);
 		strcpy(searchPerson->otherTreePointer->address, searchPerson->address);
 	}
 	else{
 		centerJustIndent(60, hConsole);
 		printf("phone: ");
 		fflush(stdin);
-		scanf("%s", searchPerson->phone);
+		fgets(searchPerson->phone, mem_tStringSize, stdin);
+		removeNewLine(searchPerson->phone);
 		fflush(stdin);
 		phoneCheck_modify(searchPerson);
 		strcpy(searchPerson->otherTreePointer->phone, searchPerson->phone);

@@ -11,6 +11,7 @@
 #include <mmsystem.h>
 
 #define basicStringSize 80
+#define mem_tStringSize 32
 #define black 0
 #define red 1
 #define initialValue 100
@@ -26,9 +27,9 @@ typedef struct {
 
 typedef struct mem_t {
 	int id;
-	char name[32];
-	char address[32];
-	char phone[32];
+	char name[mem_tStringSize];
+	char address[mem_tStringSize];
+	char phone[mem_tStringSize];
 	int color;
 	struct mem_t * father;
 	struct mem_t * left;
@@ -43,6 +44,7 @@ void readTree(member *, member *, void(*)(member *));
 int printList(member *, member*);
 
 /* 2. 회원 등록하기 */
+void removeNewLine(char * );
 int addData(rootPointer * RP, member*);
 void inputData(member * node, member * leafNull);
 int searchBiggestId(member *, member *);
@@ -55,6 +57,7 @@ int deleteUI(member*, rootPointer *, member *);
 
 
 /* 4. 회원정보 검색/수정/삭제*/
+
 void nodeCpy(member *, member *);
 void showMember(member* searchPerson);
 member* searchName(char*, member *, member *);

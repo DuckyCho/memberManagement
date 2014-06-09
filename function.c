@@ -119,22 +119,28 @@ void inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력
 
 	centerJustIndent(50, hConsole);
 	printf("name: ");
-	scanf("%s", &(node->name));
-	nameCheck(node);
 	fflush(stdin);
+	fgets(node->name, mem_tStringSize, stdin);
+	removeNewLine(node->name);
+	fflush(stdin);
+	nameCheck(node);
 	printf("\n");
 
 	centerJustIndent(50, hConsole);
 	printf("address: ");
-	gets(node->address);
+	fflush(stdin);
+	fgets(node->address, mem_tStringSize, stdin);
+	removeNewLine(node->address);
 	fflush(stdin);
 	printf("\n");
 
 	centerJustIndent(50, hConsole);
 	printf("phone: ");
-	gets(node->phone);
-	phoneCheck(node);
 	fflush(stdin);
+	fgets(node->phone, mem_tStringSize, stdin);
+	removeNewLine(node->phone);
+	fflush(stdin);
+	phoneCheck(node);
 	printf("\n\n\n");
 
 
