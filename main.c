@@ -19,6 +19,7 @@ int main(void)
 
 	while (1)
 	{
+		fflush(stdin);
 		switch (userInput){
 		case (-1) :
 			userInput = printMain();
@@ -45,6 +46,7 @@ int main(void)
 		case (5) : //credit
 			system("cls");
 			userInput = credit();
+			break;
 		case (6) : //이름순으로 회원보기
 			system("cls");
 			userInput = printList(RP.rootNodeN, leafNull);

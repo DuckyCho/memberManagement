@@ -404,6 +404,7 @@ int saveData(rootPointer * RP, member * leafNull)
 	FILE * fp;
 	HANDLE hConsole;
 	char forCount[basicStringSize];
+	char anyInput;
 	int count = 0;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	fp = fopen("data.txt", "wt");
@@ -430,7 +431,8 @@ int saveData(rootPointer * RP, member * leafNull)
 	printf("Total member : %d명\n\n", count);
 	centerJustIndent(35, hConsole);
 	printf("Press anykey to go to MainMenu....\n"/*, count*/);
-	if (getch())
+	anyInput = getch();
+	if (anyInput)
 	{
 		fflush(stdin);
 		return -1;
@@ -460,6 +462,7 @@ int credit(void)
 	char * line1 = "NHN NEXT 2014 프로그래밍연습 기말과제";
 	char * line2 = "김 정 봉   조 영 대";
 	char * line3 = "박은종 교수님 감사합니다!";
+	char anyInput = NULL;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	printf("\n\n\n\n\n\n\n");
 	centerJustIndent(strlen(line1), hConsole);
@@ -473,10 +476,12 @@ int credit(void)
 	SetConsoleTextAttribute(hConsole, 14);
 	printf(" %s \n\n\n\n\n", line3);
 
-	while (getch())
+	anyInput = getch();
+	printf("%d", anyInput);
+	if (anyInput)
 	{
 		fflush(stdin);
-		return printMain();
+		return -1;
 	}
 
 }
