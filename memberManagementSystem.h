@@ -28,6 +28,8 @@
 #define TAB 9
 #define left_arrow_key 75
 #define right_arrow_key 77
+#define ESC 27
+#define ENTER 13
 #pragma warning (disable : 4996)
 
 typedef struct {

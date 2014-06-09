@@ -538,11 +538,11 @@ int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 	{
 		fflush(stdin);
 		userInput = getch();
-		if (userInput == 27) {
+		if (userInput == ESC) {
 			userInput = -1;
 			return userInput;
 		}
-		else if (userInput == 13) {
+		else if (userInput == ENTER) {
 		
 			replaceNode(gonnaBeDeletedNode->otherTreePointer, RP, leafNull);
 			replaceNode(gonnaBeDeletedNode, RP, leafNull);

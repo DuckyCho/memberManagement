@@ -468,6 +468,7 @@ int credit(void)
 	char * line3 = "박은종 교수님 감사합니다!";
 	unsigned long long int anyInput = NULL;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	PlaySound(TEXT("credit.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 	printf("\n\n\n\n\n\n\n");
 	centerJustIndent(strlen(line1), hConsole);
 	SetConsoleTextAttribute(hConsole, 14);
