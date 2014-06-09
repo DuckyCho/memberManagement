@@ -253,9 +253,11 @@ int mainUI(int upOrDown)
 	char * menu1 = "1. 회원 보기";
 	char * menu2 = "2. 회원 등록하기";
 	char * menu3 = "3. 회원 검색하기";
-	char * menu4 = "4. 저장하기";
-	char * menu5 = "5. 종료하기";
-	char * menu6 = "0. Credit";
+	char * menu4 = "4. 회원 삭제하기";
+	char * menu5 = "5. 회원정보 수정하기";
+	char * menu6 = "6. 저장하기";
+	char * menu7 = "7. 종료하기";
+	char * menu8 = "0. Credit";
 
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -270,10 +272,10 @@ int mainUI(int upOrDown)
 		now = 0;
 		system("cls");
 	}
-	else if (now == 6)
+	else if (now == 8)
 	{
 		printf("\a");
-		now = 5;
+		now = 7;
 		system("cls");
 	}
 
@@ -355,14 +357,33 @@ int mainUI(int upOrDown)
 		centerJustIndent(strlen(menu6), hConsole);
 		SetConsoleTextAttribute(hConsole, 252);
 		printf("%s\n\n", menu6);
-		SetConsoleTextAttribute(hConsole, 14);
-		printf("\n");
 	}
 	else{
 		centerJustIndent(strlen(menu6), hConsole);
 		printf("%s\n\n", menu6);
 	}
 
+	if (now == 6){
+		centerJustIndent(strlen(menu7), hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("%s\n\n", menu7);
+	}
+	else{
+		centerJustIndent(strlen(menu7), hConsole);
+		printf("%s\n\n", menu7);
+	}
+
+	if (now == 7){
+		centerJustIndent(strlen(menu8), hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("%s\n\n", menu8);
+		SetConsoleTextAttribute(hConsole, 14);
+		printf("\n");
+	}
+	else{
+		centerJustIndent(strlen(menu8), hConsole);
+		printf("%s\n\n", menu8);
+	}
 	printf("\n");
 	fflush(stdin);
 	return now;

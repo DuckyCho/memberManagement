@@ -37,19 +37,27 @@ int main(void)
 			system("cls");
 			userInput = selectSearch(&RP, leafNull);
 			break;
-		case (3) : //저장하기
+		case (3) : //삭제하기
+			system("cls");
+			userInput = selectSearch(&RP, leafNull);
+			break;
+		case (4) : //수정하기
+			system("cls");
+			userInput = selectSearch(&RP, leafNull);
+			break;
+		case (5) : //저장하기
 			system("cls");
 			userInput = saveData(&RP, leafNull);
 			break;
-		case (4) : //종료하기
+		case (6) : //종료하기
 			system("cls");
 			return 0;
-		case (5) : //credit
+		case (7) : //credit
 			system("cls");
 			userInput = credit();
 			PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 			break;
-		case (6) : //이름순으로 회원보기
+		case (8) : //이름순으로 회원보기
 			system("cls");
 			userInput = printList(RP.rootNodeN, leafNull);
 			break;
