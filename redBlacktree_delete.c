@@ -40,6 +40,7 @@ member * findLeftSuccessor(member * node, member *leafNull)
 
 	else
 		findLeftSuccessor(node->right, leafNull);
+
 }
 
 member * findRightSuccessor(member * node, member *leafNull)
@@ -70,9 +71,13 @@ void replaceNode(member * node, rootPointer * RP, member * leafNull)
 	/****************************************************************************************************************************************************************/
 
 	//c.f. successor가 root인경우 : 트리에 root노드 단 하나만 존재하는 경우, root를 free, delete끝
-	if (successor == RP->rootNode)
+	if (successor == RP->rootNode || successor == RP->rootNodeN)
 	{
-		RP->rootNode = NULL;
+		if (successor->treeType == idTree)
+			RP->rootNode = NULL;
+		else
+			RP->rootNodeN = NULL;
+		
 		free(successor);
 	}
 
@@ -181,9 +186,23 @@ void deleteNode_step1(member * node, rootPointer * RP, member * leafNull)
 		sibling->color = black;
 
 		if (node->father->left = node) 	//node가 아빠 왼쪽노드일때 (Successor가 오른쪽 branch에서 선출된 경우)
-			rotateLeft(sibling->father, sibling->father->father, RP);
+			switch (node->treeType) {
+			case(idTree):
+				rotateLeft(sibling->father, sibling->father->father, RP);
+				break;
+			case(nameTree):
+				rotateLeftN(sibling->father, sibling->father->father, RP);
+				break;
+		}
 		else 	//node가 아빠 오른쪽노드일때 (Successor가 왼쪽 branch에서 선출된 경우)
-			rotateRight(sibling->father, sibling->father->father, RP);
+			switch (node->treeType) {
+			case(idTree) :
+				rotateRight(sibling->father, sibling->father->father, RP);
+				break;
+			case(nameTree) :
+				rotateRightN(sibling->father, sibling->father->father, RP);
+				break;
+		}
 	}
 
 	else{
@@ -203,7 +222,14 @@ void deleteNode_step2(member * node, rootPointer * RP, member * leafNull)
 			sibling->color = sibling->father->color;
 			sibling->father->color = black;
 			sibling->right->color = black;
-			rotateLeft(sibling->father, sibling->father->father, RP);
+			switch (node->treeType) {
+			case(idTree) :
+				rotateLeft(sibling->father, sibling->father->father, RP);
+				break;
+			case(nameTree) :
+				rotateLeftN(sibling->father, sibling->father->father, RP);
+				break;
+			}
 		}
 		else
 		{
@@ -218,7 +244,14 @@ void deleteNode_step2(member * node, rootPointer * RP, member * leafNull)
 			sibling->color = sibling->father->color;
 			sibling->father->color = black;
 			sibling->left->color = black;
-			rotateRight(sibling->father, sibling->father->father, RP);
+			switch (node->treeType) {
+			case(idTree) :
+				rotateRight(sibling->father, sibling->father->father, RP);
+				break;
+			case(nameTree) :
+				rotateRightN(sibling->father, sibling->father->father, RP);
+				break;
+			}
 		}
 		else
 		{
@@ -236,7 +269,14 @@ void deleteNode_step3(member * node, rootPointer * RP, member * leafNull)
 		{
 			sibling->left->color = black;
 			sibling->color = red;
-			rotateRight(sibling, sibling->father, RP);
+			switch (node->treeType) {
+			case(idTree) :
+				rotateRight(sibling->father, sibling->father->father, RP);
+				break;
+			case(nameTree) :
+				rotateRightN(sibling->father, sibling->father->father, RP);
+				break;
+			}
 			deleteNode_step2(node, RP, leafNull);
 		}
 		else
@@ -249,8 +289,14 @@ void deleteNode_step3(member * node, rootPointer * RP, member * leafNull)
 		if (sibling->color == black && sibling->right->color == red && sibling->left->color == black)
 		{
 			sibling->right->color = black;
-			sibling->color = red;
-			rotateLeft(sibling, sibling->father, RP);
+			sibling->color = red; switch (node->treeType) {
+			case(idTree) :
+				rotateLeft(sibling->father, sibling->father->father, RP);
+				break;
+			case(nameTree) :
+				rotateLeftN(sibling->father, sibling->father->father, RP);
+				break;
+			}
 			deleteNode_step2(node, RP, leafNull);
 		}
 		else

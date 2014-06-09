@@ -34,13 +34,3 @@ void deleteNode_step1(member *, rootPointer *, member *);
 void deleteNode_step2(member *, rootPointer *, member *);
 void deleteNode_step3(member *, rootPointer *, member *);
 void deleteNode_step4(member *, rootPointer *, member *);
-
-
-void replaceNodeN(member *, rootPointer *, member *);
-void deleteNodeN_step1(member *, rootPointer *, member *);
-void deleteNodeN_step2(member *, rootPointer *, member *);
-void deleteNodeN_step3(member *, rootPointer *, member *);
-void deleteNodeN_step4(member *, rootPointer *, member *);
-void rotateRightN(member*, member *, rootPointer *);
-void rotateLeftN(member*, member *, rootPointer *);
-

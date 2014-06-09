@@ -79,27 +79,18 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 	int userInput = 0;
 	int nodeOfBiggestId;
 	member * node;
-	member * node_copy;
 	node = addNode();
-	node_copy = addNode();
+	
 
 	nodeOfBiggestId = searchBiggestId(RP->rootNode, leafNull);
 	node->id = nodeOfBiggestId + 1;
 	inputData(node, leafNull);
 
-	node_copy->id = node -> id;
-	strcpy(node_copy->address, node->address);
-	strcpy(node_copy->name, node->name);
-	strcpy(node_copy->phone, node->phone);
-	node_copy->left = leafNull;
-	node_copy->right = leafNull;
-
 	attachTree(node, RP, leafNull);
 	redBlackTree(node, RP, leafNull);
 
-
-	attachTreeN(node_copy, RP, leafNull);
-	redBlackTreeN(node_copy, RP, leafNull);
+	attachTreeN(node->otherTreePointer, RP, leafNull);
+	redBlackTreeN(node->otherTreePointer, RP, leafNull);
 	
 	fflush(stdin);
 	userInput = functionKeyInput();
@@ -150,6 +141,15 @@ void inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력
 	node->color = red;
 	node->left = leafNull;
 	node->right = leafNull;
+	
+
+	node->otherTreePointer->id = node->id;
+	strcpy(node->otherTreePointer->address, node->address);
+	strcpy(node->otherTreePointer->name, node->name);
+	strcpy(node->otherTreePointer->phone, node->phone);
+	node->otherTreePointer->left = leafNull;
+	node->otherTreePointer->right = leafNull;
+
 
 }
 
@@ -378,6 +378,17 @@ void readData(member * node, FILE * fp, member * leafNull)
 	node->color = red;
 	node->left = leafNull;
 	node->right = leafNull;
+
+	node->otherTreePointer->father = NULL;
+	node->otherTreePointer->color = red;
+	node->otherTreePointer->left = leafNull;
+	node->otherTreePointer->right = leafNull;
+
+	node->otherTreePointer->id = node->id;
+	strcpy(node->otherTreePointer->name, node->name);
+	strcpy(node->otherTreePointer->address, node->address);
+	strcpy(node->otherTreePointer->phone, node->phone);
+	
 }
 
 
@@ -386,7 +397,6 @@ member * makeTree(rootPointer * RP, member * leafNull)
 	FILE * fp;
 	member * node;
 
-	leafNull->color = black;
 	char trash[basicStringSize];
 	fp = fopen("data.txt", "rt");
 
@@ -399,7 +409,6 @@ member * makeTree(rootPointer * RP, member * leafNull)
 
 	do{
 		node = addNode();
-
 		readData(node, fp, leafNull);
 		if (node->id < 0)
 		{
@@ -407,12 +416,15 @@ member * makeTree(rootPointer * RP, member * leafNull)
 			return leafNull;
 		}
 		attachTree(node, RP, leafNull);
+		attachTreeN(node->otherTreePointer, RP, leafNull);
 		redBlackTree(node, RP, leafNull);
+		redBlackTreeN(node->otherTreePointer, RP, leafNull);
 
 } while (getc(fp) != EOF);
 
 }
 
+/*
 member * makeTree_Name(rootPointer * RP, member * leafNull)
 {
 	FILE * fp;
@@ -443,7 +455,7 @@ member * makeTree_Name(rootPointer * RP, member * leafNull)
 
 }
 
-
+*/
 
 
 

@@ -15,6 +15,8 @@
 #define red 1
 #define initialValue 100
 #define zero 0
+#define idTree 0
+#define nameTree 1
 #pragma warning (disable : 4996)
 
 typedef struct {
@@ -31,7 +33,8 @@ typedef struct mem_t {
 	struct mem_t * father;
 	struct mem_t * left;
 	struct mem_t * right;
-
+	struct mem_t * otherTreePointer;
+	int treeType;
 } member;
 
 
@@ -49,7 +52,7 @@ void phoneCheck_modify(member* node);
 
 /* 3. 회원 삭제하기 */
 int deleteUI(member*, rootPointer *, member *);
-int deleteNUI(member*, rootPointer *, member *);
+
 
 /* 4. 회원정보 검색/수정/삭제*/
 void showMember(member* searchPerson);

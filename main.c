@@ -5,13 +5,14 @@ int main(void)
 
 {
 	int userInput = -1;
-	rootPointer RP = { NULL };
+	rootPointer RP = { NULL, NULL };
 
 	member * leafNull;
 	leafNull = (member *)malloc(sizeof(member)* 1);
+	leafNull->color = black;
 	
 	leafNull = makeTree(&RP, leafNull);
-	leafNull = makeTree_Name(&RP, leafNull);
+	//leafNull = makeTree_Name(&RP, leafNull);
 	
 	PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 
@@ -23,7 +24,7 @@ int main(void)
 			break;
 		case (0) :
 			system("cls"); //회원보기
-			userInput = printList(RP.rootNodeN, leafNull);
+			userInput = printList(RP.rootNode, leafNull);
 			break;
 		case (1) : //회원등록하기
 			system("cls");
