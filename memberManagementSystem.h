@@ -19,6 +19,17 @@
 #define zero 0
 #define idTree 0
 #define nameTree 1
+#define F1 59
+#define F2 60
+#define F3 61
+#define F4 62
+#define F5 63
+#define F10 68
+#define TAB 9
+#define left_arrow_key 75
+#define right_arrow_key 77
+#define ESC 27
+#define ENTER 13
 #pragma warning (disable : 4996)
 
 typedef struct {

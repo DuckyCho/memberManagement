@@ -196,7 +196,7 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 			replaceNode(searchPerson, RP, leafNull);
 			tmp->otherTreePointer = addNode();
 			tmp->otherTreePointer->treeType = nameTree;
-			tmp->otherTreePointer->otherTreePointer = searchPerson;
+			tmp->otherTreePointer->otherTreePointer = tmp;
 			nodeCpy(tmp, tmp->otherTreePointer);
 			tmp->otherTreePointer->left = leafNull;
 			tmp->otherTreePointer->right = leafNull;
@@ -538,11 +538,11 @@ int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 	{
 		fflush(stdin);
 		userInput = getch();
-		if (userInput == 27) {
+		if (userInput == ESC) {
 			userInput = -1;
 			return userInput;
 		}
-		else if (userInput == 13) {
+		else if (userInput == ENTER) {
 		
 			replaceNode(gonnaBeDeletedNode->otherTreePointer, RP, leafNull);
 			replaceNode(gonnaBeDeletedNode, RP, leafNull);

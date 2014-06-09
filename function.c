@@ -404,7 +404,7 @@ int saveData(rootPointer * RP, member * leafNull)
 	FILE * fp;
 	HANDLE hConsole;
 	char forCount[basicStringSize];
-	char anyInput;
+	unsigned long long int anyInput;
 	int count = 0;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	fp = fopen("data.txt", "wt");
@@ -434,6 +434,10 @@ int saveData(rootPointer * RP, member * leafNull)
 	anyInput = getch();
 	if (anyInput)
 	{
+		if (anyInput == 224)
+		{
+			getch();
+		}
 		fflush(stdin);
 		return -1;
 	}
@@ -462,7 +466,7 @@ int credit(void)
 	char * line1 = "NHN NEXT 2014 프로그래밍연습 기말과제";
 	char * line2 = "김 정 봉   조 영 대";
 	char * line3 = "박은종 교수님 감사합니다!";
-	char anyInput = NULL;
+	unsigned long long int anyInput = NULL;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	PlaySound(TEXT("credit.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 	printf("\n\n\n\n\n\n\n");
@@ -478,9 +482,12 @@ int credit(void)
 	printf(" %s \n\n\n\n\n", line3);
 
 	anyInput = getch();
-	printf("%d", anyInput);
 	if (anyInput)
 	{
+		if (anyInput == 224)
+		{
+			getch();
+		}
 		fflush(stdin);
 		return -1;
 	}
