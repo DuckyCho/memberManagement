@@ -16,9 +16,10 @@ int main(void)
 	leafNull = makeTree(&RP, leafNull);
 
 	PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
-
 	while (1)
 	{
+
+
 		fflush(stdin);
 		switch (userInput){
 		case (-1) :
@@ -46,6 +47,7 @@ int main(void)
 		case (5) : //credit
 			system("cls");
 			userInput = credit();
+			PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 			break;
 		case (6) : //이름순으로 회원보기
 			system("cls");
