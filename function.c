@@ -80,6 +80,11 @@ int addData(rootPointer * RP, member * leafNull)//입력받은 회원의 정보를 RB에 넣
 	int nodeOfBiggestId;
 	member * node;
 	node = addNode();
+	node->otherTreePointer = addNode();
+
+	node->otherTreePointer->otherTreePointer = node;
+	node->treeType = idTree;
+	node->otherTreePointer->treeType = nameTree;
 	
 
 	nodeOfBiggestId = searchBiggestId(RP->rootNode, leafNull);
@@ -364,6 +369,7 @@ int credit(void)
 		fflush(stdin);
 		return printMain();
 	}
+
 }
 
 
@@ -374,20 +380,13 @@ void readData(member * node, FILE * fp, member * leafNull)
 
 	fscanf(fp, "%d\t%[^\t]\t%[^\t]\t%[^\n]", &(node->id), node->name, node->address, node->phone);
 
-	node->father = NULL;
-	node->color = red;
 	node->left = leafNull;
 	node->right = leafNull;
 
-	node->otherTreePointer->father = NULL;
-	node->otherTreePointer->color = red;
 	node->otherTreePointer->left = leafNull;
 	node->otherTreePointer->right = leafNull;
 
-	node->otherTreePointer->id = node->id;
-	strcpy(node->otherTreePointer->name, node->name);
-	strcpy(node->otherTreePointer->address, node->address);
-	strcpy(node->otherTreePointer->phone, node->phone);
+	nodeCpy(node, node->otherTreePointer);
 	
 }
 
@@ -409,6 +408,12 @@ member * makeTree(rootPointer * RP, member * leafNull)
 
 	do{
 		node = addNode();
+		node->otherTreePointer = addNode();
+
+		node->otherTreePointer->otherTreePointer = node;
+		node->treeType = idTree;
+		node->otherTreePointer->treeType = nameTree;
+
 		readData(node, fp, leafNull);
 		if (node->id < 0)
 		{
@@ -423,39 +428,3 @@ member * makeTree(rootPointer * RP, member * leafNull)
 } while (getc(fp) != EOF);
 
 }
-
-/*
-member * makeTree_Name(rootPointer * RP, member * leafNull)
-{
-	FILE * fp;
-	member * node;
-
-	leafNull->color = black;
-	char trash[basicStringSize];
-	fp = fopen("data.txt", "rt");
-
-	if (fp == NULL) {
-		printf("file open error!\n");
-	}
-
-	fgets(trash, basicStringSize, fp);
-
-
-	do{
-		node = addNode();
-		readData(node, fp, leafNull);
-		if (node->id < 0)
-		{
-			fclose(fp);
-			return leafNull;
-		}
-		attachTreeN(node, RP, leafNull);
-		redBlackTreeN(node, RP, leafNull);
-	} while (getc(fp) != EOF);
-
-}
-
-*/
-
-
-

@@ -55,20 +55,19 @@ int deleteUI(member*, rootPointer *, member *);
 
 
 /* 4. 회원정보 검색/수정/삭제*/
+void nodeCpy(member *, member *);
 void showMember(member* searchPerson);
 member* searchName(char*, member *, member *);
 member* searchId(int, member *, member *);
 int selectSearch(rootPointer*, member *);
+int selectModify(member*, rootPointer*, member*);
 int searchUI(int);
 int modifyUI(int, member*);
+int find(rootPointer* , member * , int );
+int modify(member*, rootPointer*, member*);
 
-//이름으로 검색
-int find_byName(rootPointer* , member * );
-int modify_byName(member* , rootPointer* , member* );
 
-//회원번호로 검색
-int find_byId(rootPointer* , member * );
-int modify_byId(member* , rootPointer* RP, member* );
+
 
 /* 6. 저장하기*/
 int saveData(rootPointer *, member *);

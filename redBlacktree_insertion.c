@@ -6,13 +6,8 @@ member * addNode(void)
 {
 	member * node = 0;
 	node = (member *)malloc(sizeof(member)* 1);
-	node->otherTreePointer = (member *)malloc(sizeof(member) * 1);
-
-	node->otherTreePointer->otherTreePointer = node;
-
-	node->treeType = idTree;
-	node->otherTreePointer->treeType = nameTree;
-
+	node->father = NULL;
+	node->color = red;
 	return node;
 }
 
