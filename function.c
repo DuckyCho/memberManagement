@@ -477,7 +477,6 @@ int credit(void)
 	printf(" %s \n\n\n\n\n", line3);
 
 	anyInput = getch();
-	printf("%d", anyInput);
 	if (anyInput)
 	{
 		fflush(stdin);
