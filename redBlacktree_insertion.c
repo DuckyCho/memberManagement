@@ -1,4 +1,5 @@
 #include "memberManagementSystem.h"
+#include "redBlackFunctions.h"
 
 
 member * addNode(void)

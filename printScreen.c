@@ -1,4 +1,5 @@
 #include "memberManagementSystem.h"
+#include "redBlackFunctions.h"
 //회원 검색 결과가 없을 때 입력받기 화면
 
 int functionKeyInput_WhenSearchResultVoid(void)

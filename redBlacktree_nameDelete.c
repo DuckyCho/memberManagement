@@ -1,4 +1,5 @@
 #include "memberManagementSystem.h"
+#include "redBlackFunctions.h"
 
 
 void replaceNodeN(member * node, rootPointer * RP, member * leafNull)

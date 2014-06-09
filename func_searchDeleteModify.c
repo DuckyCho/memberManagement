@@ -1,4 +1,5 @@
 #include "memberManagementSystem.h"
+#include "redBlackFunctions.h"
 
 /* 5. 회원 검색하기 */
 

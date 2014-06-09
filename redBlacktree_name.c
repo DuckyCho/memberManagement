@@ -1,4 +1,5 @@
 #include "memberManagementSystem.h"
+#include "redBlackFunctions.h"
 
 void attachTreeN(member * node, rootPointer * RP, member *leafNull)
 {
