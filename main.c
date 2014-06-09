@@ -8,8 +8,8 @@ int main(void)
 {
 	int userInput = -1;
 	rootPointer RP = { NULL, NULL };
-
 	member * leafNull;
+
 	leafNull = (member *)malloc(sizeof(member)* 1);
 	leafNull->color = black;
 	

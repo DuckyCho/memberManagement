@@ -51,7 +51,7 @@ typedef struct index_t{
 
 
 /* 1. 회원명단 보기 */
-index * readTree(member *, member *, void(*)(member *), int *);
+index * readTree(member *, member *, void(*)(member *),index *);
 int printList(member *, member*);
 index * printList_printf(index *, idxHead *);
 index * addIdx(void);

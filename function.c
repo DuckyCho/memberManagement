@@ -9,13 +9,14 @@
 int printList(member * node, member * leafNull)
 {
 	int userInput = 0;
-	int count = 1;	
+	int count = 0;	
 	idxHead * head = (idxHead *)malloc(sizeof(idxHead) * 1);
 	index * key;
-
-
+	index * keyArr[basicStringSize] = { 0, };
+	
 	head->indexHead = addIdx();
-	readTree(node, leafNull, NULL, head->indexHead,&count);//tree의 노드들로 인덱스를 구성
+
+	readTree(node, leafNull, NULL, head->indexHead);//tree의 노드들로 인덱스를 구성
 
 	key = head->indexHead->next;
 	while (key->next != NULL)
@@ -25,10 +26,14 @@ int printList(member * node, member * leafNull)
 	head->indexHead->next->prev = key;
 	key->next = head->indexHead->next;
 	key = head->indexHead->next;
+	keyArr[count] = key;
 
 	while (1)
 	{
 		key = printList_printf(key, head);
+		
+		keyArr[count+1] = key;
+		
 		fflush(stdin);
 		userInput = functionKeyInput_memberListPrint();
 		fflush(stdin);
@@ -41,20 +46,23 @@ int printList(member * node, member * leafNull)
 		case(2) : //회원검색
 			return userInput;
 		case(3) : //이전 회원 리스트보기
-			if (key == head->indexHead->prev)
-			{
-				for (int i = 0; i < consoleRow; i++)
-				{
-					key = key->prev;
-				}
-			}
-			break;
+			if (count-1 >= 0){
+			key = keyArr[count-1];
+			count -= 1;
+			break;}
+			else{
+				printf("\a");
+				key = keyArr[count];
+				break;}
 		case(4) : //다음 회원 리스트 보기
-			if (key->next == head->indexHead->next)
-			{
-				key = head->indexHead->next;
+			if (keyArr[count + 1] == keyArr[count]){
+				printf("\a");
+				break;}
+			else{
+				key = keyArr[count+1];
+				count += 1;
+				break;
 			}
-			break;
 		case(6) : //이름순으로 정렬된 회원 보기
 			return userInput;
 		}
@@ -64,6 +72,7 @@ int printList(member * node, member * leafNull)
 index * printList_printf(index * idx, idxHead * head)
 {
 	HANDLE hConsole;
+	index * tmp;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	
 	system("cls");
@@ -73,7 +82,7 @@ index * printList_printf(index * idx, idxHead * head)
 	centerJustIndent(63, hConsole);
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("───────────────────────────────\n");
-
+	tmp = idx;
 	for (int i = 0; i < consoleRow; i++)
 	{
 		SetConsoleTextAttribute(hConsole, 15);
@@ -81,7 +90,7 @@ index * printList_printf(index * idx, idxHead * head)
 		printf("%-9d%-9s%-25s\t%s\n", idx->value->id, idx->value->name, idx->value->address, idx->value->phone);
 		if (idx->next == head->indexHead->next)
 		{
-			return idx;
+			return tmp;
 		}
 		idx = idx->next;
 	}
@@ -101,10 +110,9 @@ index * addIdx(void)
 int test_someone();
 
 //중위 순회로 트리를 읽어옴 id기준으로 정렬되어 print됨
-index * readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *), index * idx,int * count)
+index * readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *), index * idx)
 {
 	HANDLE hConsole;
-	int userInput;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	index *newIdx;
@@ -112,7 +120,7 @@ index * readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *
 	{
 		if (node->left != leafNull)
 		{
-			idx = readTree(node->left, leafNull, writeDataToTxt, idx, count);
+			idx = readTree(node->left, leafNull, writeDataToTxt, idx );
 		}
 
 		newIdx = addIdx();
@@ -120,11 +128,10 @@ index * readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *
 		idx->next->value = node;
 		idx->next->prev = idx;
 		idx = idx->next;
-		(*count)++;
 
 		if (node->right != leafNull)
 		{
-			idx=readTree(node->right, leafNull, writeDataToTxt, idx,count);
+			idx=readTree(node->right, leafNull, writeDataToTxt, idx);
 		}
 
 		return idx;
@@ -133,7 +140,7 @@ index * readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *
 	{
 		if (node->left != leafNull)
 		{
-			readTree(node->left, leafNull, writeDataToTxt, idx,count);
+			readTree(node->left, leafNull, writeDataToTxt, idx);
 			writeDataToTxt(node);
 		}
 
@@ -144,7 +151,7 @@ index * readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *
 
 		if (node->right != leafNull)
 		{
-			readTree(node->right, leafNull, writeDataToTxt, idx,count);
+			readTree(node->right, leafNull, writeDataToTxt, idx);
 		}
 		return NULL;
 
@@ -404,7 +411,7 @@ int saveData(rootPointer * RP, member * leafNull)
 	fprintf(fp, "%s\t%s\t%s\t%s\n", "ID", "이름", "주소", "전화번호");
 	fclose(fp);
 
-	readTree(RP->rootNode, leafNull, writeDataToTxt,NULL,NULL);
+	readTree(RP->rootNode, leafNull, writeDataToTxt,NULL);
 
 
 	fp = fopen("data.txt", "rt");
