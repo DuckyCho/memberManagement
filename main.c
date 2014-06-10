@@ -49,9 +49,10 @@ int main(void)
 			system("cls");
 			userInput = saveData(&RP, leafNull);
 			break;
-		case (6) : //종료하기
+		case (6) : //종료하기 전에 저장여부 확인
 			system("cls");
-			return 0;
+			userInput = askSave();
+			break;
 		case (7) : //credit
 			system("cls");
 			userInput = credit();
@@ -61,6 +62,9 @@ int main(void)
 			system("cls");
 			userInput = printList(RP.rootNodeN, leafNull);
 			break;
+		case (9) : //종료하기
+			system("cls");
+			return;
 		}
 	}
 

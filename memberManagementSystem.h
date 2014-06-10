@@ -19,17 +19,6 @@
 #define zero 0
 #define idTree 0
 #define nameTree 1
-#define F1 59
-#define F2 60
-#define F3 61
-#define F4 62
-#define F5 63
-#define F10 68
-#define TAB 9
-#define left_arrow_key 75
-#define right_arrow_key 77
-#define ESC 27
-#define ENTER 13
 #pragma warning (disable : 4996)
 
 typedef struct {
@@ -86,6 +75,8 @@ void nodeCpy(member *, member *);
 void showMember(member* searchPerson);
 member* searchName(char*, member *, member *);
 member* searchId(int, member *, member *);
+member* searchPhone(char* phone, member* compare, member* leafNull);
+
 int selectSearch(rootPointer*, member *);
 int selectModify(member*, rootPointer*, member*);
 int searchUI(int);
@@ -93,15 +84,15 @@ int modifyUI(int, member*);
 int find(rootPointer* , member * , int );
 int modify(member*, rootPointer*, member*);
 
-
-
-
-/* 6. 저장하기*/
+/* 6. 저장하기 */
 int saveData(rootPointer *, member *);
 void writeDataToTxt(member *);
 
 /* 8. credit 보기 */
 int credit(void);
+
+/* 9. 종료하기 */
+int askSave(void);
 
 /* 0.메인 함수 */
 void readData(member *, FILE *, member *);

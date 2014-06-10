@@ -157,21 +157,6 @@ index * readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *
 
 	}
 
-	/*
-	
-	else
-	{
-		if (!*writeDataToTxt)
-		{
-			
-		}
-		else
-		{
-			writeDataToTxt(node);
-		}
-	}
-	*/
-	
 }
 
 
@@ -219,6 +204,9 @@ void inputData(member * node, member * leafNull)//새로운 회원의 정보를 입력
 	centerJustIndent(35, hConsole);
 	SetConsoleTextAttribute(hConsole, 252);
 	printf("please insert membership information.\n\n\n\n");
+
+	centerJustIndent(50, hConsole);
+	printf("id: %d\n\n", node->id);
 
 	centerJustIndent(50, hConsole);
 	printf("name: ");
@@ -289,6 +277,9 @@ void phoneCheck(member* node)
 			SetConsoleTextAttribute(hConsole, 14);
 			printf("the phone number is not properly formatted.\n\n");
 			 
+			centerJustIndent(50, hConsole);
+			printf("id: %d\n\n", node->id);
+
 			centerJustIndent(50, hConsole);
 			printf("name: ");
 			printf("%s", node->name);
@@ -404,7 +395,7 @@ int saveData(rootPointer * RP, member * leafNull)
 	FILE * fp;
 	HANDLE hConsole;
 	char forCount[basicStringSize];
-	unsigned long long int anyInput;
+	char anyInput;
 	int count = 0;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	fp = fopen("data.txt", "wt");
@@ -434,10 +425,6 @@ int saveData(rootPointer * RP, member * leafNull)
 	anyInput = getch();
 	if (anyInput)
 	{
-		if (anyInput == 224)
-		{
-			getch();
-		}
 		fflush(stdin);
 		return -1;
 	}
@@ -466,7 +453,7 @@ int credit(void)
 	char * line1 = "NHN NEXT 2014 프로그래밍연습 기말과제";
 	char * line2 = "김 정 봉   조 영 대";
 	char * line3 = "박은종 교수님 감사합니다!";
-	unsigned long long int anyInput = NULL;
+	char anyInput = NULL;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	PlaySound(TEXT("credit.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 	printf("\n\n\n\n\n\n\n");
@@ -482,18 +469,53 @@ int credit(void)
 	printf(" %s \n\n\n\n\n", line3);
 
 	anyInput = getch();
+	printf("%d", anyInput);
 	if (anyInput)
 	{
-		if (anyInput == 224)
-		{
-			getch();
-		}
 		fflush(stdin);
 		return -1;
 	}
 
 }
 
+/* 9. 종료하기 */
+
+int askSave()
+{
+	HANDLE hConsole;
+	int userInput = 0;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	
+	printf("\n\n\n\n\n");
+	centerJustIndent(30, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("Do you want to save the changes? \n\n\n\n\n\n\n\n\n\n\n\n");
+
+	centerJustIndent(22, hConsole);
+	SetConsoleTextAttribute(hConsole, 252);
+	printf("  end ESC    save ENTER  \n");
+	SetConsoleTextAttribute(hConsole, 14);
+
+
+	while (1)
+	{
+		fflush(stdin);
+		userInput = getch();
+		if (userInput == 27) {
+			userInput =9;
+			break;
+		}
+		else if (userInput == 13) {
+			userInput = 5;
+			break;
+		}
+		else{
+			printf("\a");
+			continue;
+		}
+	}
+	return userInput;
+}
 
 /* 0. 메인 함수 */
 

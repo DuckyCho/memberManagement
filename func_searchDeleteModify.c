@@ -38,7 +38,7 @@ int selectSearch(rootPointer* RP, member * leafNull)
 		}
 	}
 
-	if (userInput == 0 || userInput == 1)
+	if (userInput == 0 || userInput == 1 || userInput == 2)
 	{
 		userInput = find(RP, leafNull, userInput);
 		return userInput;
@@ -57,6 +57,7 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	int userInput = -1;
 	char * upperDeco = "○─────────────────────────────○";
 	char name[32];
+	char phone[32];
 	int idInput = 0;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -83,6 +84,13 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 		scanf("%d", &idInput);
 		fflush(stdin);
 		break;
+	case(2) :
+		printf("phone: ");
+		fflush(stdin);
+		fgets(phone, mem_tStringSize, stdin);
+		removeNewLine(phone);
+		fflush(stdin);
+		break;
 	}
 	fflush(stdin);
 	printf("\n\n");
@@ -94,9 +102,10 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	case(1):
 		searchPerson = searchId(idInput, RP->rootNode, leafNull);
 		break;
+	case(2) :
+		searchPerson = searchPhone(phone, RP->rootNode, leafNull);
 	}
 	
-
 	if (searchPerson == leafNull) //회원검색했을 때 결과가 없는경우
 	{
 		centerJustIndent(40, hConsole);
@@ -196,7 +205,7 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 			replaceNode(searchPerson, RP, leafNull);
 			tmp->otherTreePointer = addNode();
 			tmp->otherTreePointer->treeType = nameTree;
-			tmp->otherTreePointer->otherTreePointer = tmp;
+			tmp->otherTreePointer->otherTreePointer = searchPerson;
 			nodeCpy(tmp, tmp->otherTreePointer);
 			tmp->otherTreePointer->left = leafNull;
 			tmp->otherTreePointer->right = leafNull;
@@ -269,7 +278,8 @@ int searchUI(int upOrDown)
 	static int now = 0;
 	char * menu1 = "search by name";
 	char * menu2 = "search by ID";
-	char * menu3 = "return to main menu";
+	char * menu3 = "search by phone";
+	char * menu4 = "return to main menu";
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	now += upOrDown;
@@ -279,9 +289,9 @@ int searchUI(int upOrDown)
 		now = 0;
 		system("cls");
 	}
-	else if (now >= 3)
+	else if (now >= 4)
 	{
-		now = 2;
+		now = 3;
 		system("cls");
 	}
 
@@ -297,7 +307,6 @@ int searchUI(int upOrDown)
 		centerJustIndent(strlen(menu1), hConsole);
 		printf("%s\n\n", menu1);
 	}
-
 	if (now == 1){
 		centerJustIndent(strlen(menu2), hConsole);
 		SetConsoleTextAttribute(hConsole, 252);
@@ -320,9 +329,41 @@ int searchUI(int upOrDown)
 		SetConsoleTextAttribute(hConsole, 15);
 		printf("%s\n\n", menu3);
 	}
+	if (now == 3){
+		centerJustIndent(strlen(menu4), hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("%s\n\n", menu4);
+		SetConsoleTextAttribute(hConsole, 14);
+	}
+	else{
+		centerJustIndent(strlen(menu4), hConsole);
+		SetConsoleTextAttribute(hConsole, 15);
+		printf("%s\n\n", menu4);
+	}
 	printf("\n");
 
 	return now;
+}
+
+member* searchPhone(char* phone, member* compare, member* leafNull)
+{
+	if (compare == leafNull)
+	{
+		return leafNull;
+	}
+
+	if (strcmp(phone, compare->phone)<0)
+	{
+		return searchPhone(phone, compare->left, leafNull);
+	}
+	else if (strcmp(phone, compare->phone)>0)
+	{
+		return searchPhone(phone, compare->right, leafNull);
+	}
+	else
+	{
+		return compare;
+	}
 }
 
 
@@ -538,11 +579,11 @@ int deleteUI(member* gonnaBeDeletedNode, rootPointer * RP, member * leafNull)
 	{
 		fflush(stdin);
 		userInput = getch();
-		if (userInput == ESC) {
+		if (userInput == 27) {
 			userInput = -1;
 			return userInput;
 		}
-		else if (userInput == ENTER) {
+		else if (userInput == 13) {
 		
 			replaceNode(gonnaBeDeletedNode->otherTreePointer, RP, leafNull);
 			replaceNode(gonnaBeDeletedNode, RP, leafNull);
