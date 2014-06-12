@@ -1,6 +1,6 @@
-#ifndef memberManagementSystem.h
+#ifndef __MEMBERMANAGEMENTSYSTEM_H__
 
-#define memberManagementSystem
+#define __MEMBERMANAGEMENTSYSTEM_H__
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -121,5 +121,6 @@ int mainUI(int);
 void centerJustIndent(int /*input strlen*/, HANDLE);
 int functionKeyInput(void);
 int functionKeyInput_WhenSearchResultVoid(void);
+int functionKeyInput_memberListPrint(void);
 
 #endif

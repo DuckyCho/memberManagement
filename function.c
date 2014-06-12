@@ -429,6 +429,7 @@ int saveData(rootPointer * RP, member * leafNull)
 		fflush(stdin);
 		return -1;
 	}
+	return -1;
 }
 
 void writeDataToTxt(member * node)
@@ -454,7 +455,7 @@ int credit(void)
 	char * line1 = "NHN NEXT 2014 프로그래밍연습 기말과제";
 	char * line2 = "김 정 봉   조 영 대";
 	char * line3 = "박은종 교수님 감사합니다!";
-	char anyInput = NULL;
+	char anyInput;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	PlaySound(TEXT("credit.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 	printf("\n\n\n\n\n\n\n");
@@ -476,7 +477,7 @@ int credit(void)
 		fflush(stdin);
 		return -1;
 	}
-
+	return -1;
 }
 
 /* 9. 종료하기 */
@@ -578,4 +579,5 @@ member * makeTree(rootPointer * RP, member * leafNull)
 
 } while (getc(fp) != EOF);
 
+	return NULL;
 }
