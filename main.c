@@ -1,12 +1,9 @@
 #include "memberManagementSystem.h"
 #include "redBlackFunctions.h"
 
-
-
 int main(void)
-
 {
-	int userInput = -1;
+	int userInput = mainMenu;
 	rootPointer RP = { NULL, NULL };
 	member * leafNull;
 
@@ -18,53 +15,48 @@ int main(void)
 	PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 	while (1)
 	{
-
-
 		fflush(stdin);
 		switch (userInput){
-		case (-1) :
+		case (mainMenu) :
 			userInput = printMain();
 			break;
-		case (0) :
+		case (printMemberListInIdOrder) :
 			system("cls"); //id 순으로 회원보기
 			userInput = printList(RP.rootNode, leafNull);
 			break;
-		case (1) : //회원등록하기
+		case (registerNewMember) : //회원등록하기
 			system("cls");
 			userInput = addData(&RP, leafNull);
 			break;
-		case (2) : //회원검색하기
+		case (searchMember) : //회원검색하기
 			system("cls");
 			userInput = selectSearch(&RP, leafNull);
 			break;
-		case (3) : //삭제하기
+		case (deleteMember) : //삭제하기
 			system("cls");
 			userInput = selectSearch(&RP, leafNull);
 			break;
-		case (4) : //수정하기
+		case (memberInfoModif) : //수정하기
 			system("cls");
 			userInput = selectSearch(&RP, leafNull);
 			break;
-		case (5) : //저장하기
+		case (saveMemberList) : //저장하기
 			system("cls");
 			userInput = saveData(&RP, leafNull);
 			break;
-		case (6) : //종료하기 전에 저장여부 확인
+		case (quitProgram) : //종료하기 전에 저장여부 확인
 			system("cls");
 			userInput = askSave(&RP,leafNull);
 			return 0;
-		case (7) : //credit
+		case (creditPage) : //credit
 			system("cls");
 			userInput = credit();
 			PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 			break;
-		case (8) : //이름순으로 회원보기
+		case (printMemberListInNameOrder) : //이름순으로 회원보기
 			system("cls");
 			userInput = printList(RP.rootNodeN, leafNull);
 			break;
-		case (9) : //종료하기
-			system("cls");
-			return;
 		}
 	}
 

@@ -39,11 +39,11 @@ int printList(member * node, member * leafNull)
 		fflush(stdin);
 
 		switch (userInput){
-		case(-1) : //메인메뉴
+		case(mainMenu) : //메인메뉴
 			return userInput;
-		case(0) : //id순으로 정렬 회원보기
+		case(printMemberListInIdOrder) : //id순으로 정렬 회원보기
 			return userInput;
-		case(2) : //회원검색
+		case(searchMember) : //회원검색
 			return userInput;
 		case(3) : //이전 회원 리스트보기
 			if (count-1 >= 0){
@@ -63,7 +63,7 @@ int printList(member * node, member * leafNull)
 				count += 1;
 				break;
 			}
-		case(6) : //이름순으로 정렬된 회원 보기
+		case(printMemberListInNameOrder) : //이름순으로 정렬된 회원 보기
 			return userInput;
 		}
 	}

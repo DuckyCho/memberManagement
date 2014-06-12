@@ -7,9 +7,21 @@
 #include <string.h>
 #include <math.h>
 #include <Windows.h>
-#pragma comment(lib,"winmm.lib")
 #include <mmsystem.h>
 
+#pragma comment(lib,"winmm.lib")
+#pragma warning (disable : 4996)
+
+#define mainMenu -1
+#define printMemberListInIdOrder 0
+#define printMemberListInNameOrder 8
+#define registerNewMember 1
+#define searchMember 2
+#define deleteMember 3
+#define memberInfoModif 4
+#define saveMemberList 5
+#define quitProgram 6
+#define creditPage 7
 #define basicStringSize 80
 #define mem_tStringSize 32
 #define consoleRow 20
@@ -30,8 +42,6 @@
 #define tab 9
 #define enter 13
 #define ESC 27
-
-#pragma warning (disable : 4996)
 
 typedef struct {
 	struct mem_t * rootNode;

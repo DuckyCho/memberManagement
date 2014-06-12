@@ -31,11 +31,11 @@ int functionKeyInput_memberListPrint(void)
 
 		if (userInput == F1) //F1 : 회원검색
 		{
-			return 2;
+			return searchMember;
 		}
 		else if (userInput == F10) //F10 : 메인메뉴
 		{
-			return -1;
+			return mainMenu;
 		}
 		else if (userInput == leftArrow) //←키를 누른경우
 		{
@@ -49,11 +49,11 @@ int functionKeyInput_memberListPrint(void)
 		{
 			if (status == 0){
 				status = 1;
-				return 6;
+				return printMemberListInNameOrder;
 			}
 			else{
 				status = 0;
-				return 0;
+				return printMemberListInIdOrder;
 			}
 		}
 		else if (userInput == 0 || userInput == 224)
@@ -93,11 +93,11 @@ int functionKeyInput_WhenSearchResultVoid(void)
 
 		if (userInput == F1) //F1 : 회원검색 다시하기
 		{
-			return 2;
+			return searchMember;
 		}
 		else if (userInput == F10) //F10 : 메인메뉴
 		{
-			return -1;
+			return mainMenu;
 		}
 		else if (userInput == 0)
 		{
