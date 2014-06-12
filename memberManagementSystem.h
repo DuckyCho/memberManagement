@@ -19,6 +19,18 @@
 #define zero 0
 #define idTree 0
 #define nameTree 1
+#define F1 59
+#define F2 60
+#define F3 61
+#define F4 62
+#define F5 63
+#define F10 68
+#define leftArrow 75
+#define rightArrow 77
+#define tab 9
+#define enter 13
+#define ESC 27
+
 #pragma warning (disable : 4996)
 
 typedef struct {
@@ -92,7 +104,7 @@ void writeDataToTxt(member *);
 int credit(void);
 
 /* 9. 종료하기 */
-int askSave(void);
+int askSave(rootPointer *, member *);
 
 /* 0.메인 함수 */
 void readData(member *, FILE *, member *);

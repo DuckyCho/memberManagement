@@ -51,8 +51,8 @@ int main(void)
 			break;
 		case (6) : //종료하기 전에 저장여부 확인
 			system("cls");
-			userInput = askSave();
-			break;
+			userInput = askSave(&RP,leafNull);
+			return 0;
 		case (7) : //credit
 			system("cls");
 			userInput = credit();

@@ -29,23 +29,23 @@ int functionKeyInput_memberListPrint(void)
 	{
 		userInput = getch();
 
-		if (userInput == 59) //F1 : 회원검색
+		if (userInput == F1) //F1 : 회원검색
 		{
 			return 2;
 		}
-		else if (userInput == 68) //F10 : 메인메뉴
+		else if (userInput == F10) //F10 : 메인메뉴
 		{
 			return -1;
 		}
-		else if (userInput == 75) //←키를 누른경우
+		else if (userInput == leftArrow) //←키를 누른경우
 		{
 			return 3;
 		}
-		else if (userInput == 77) //→키를 누른경우
+		else if (userInput == rightArrow) //→키를 누른경우
 		{
 			return 4;
 		}
-		else if (userInput == 9/*tab*/) //tab키를 누른경우
+		else if (userInput == tab) //tab키를 누른경우
 		{
 			if (status == 0){
 				status = 1;
@@ -91,11 +91,11 @@ int functionKeyInput_WhenSearchResultVoid(void)
 	{
 		userInput = getch();
 
-		if (userInput == 59) //F1 : 회원검색 다시하기
+		if (userInput == F1) //F1 : 회원검색 다시하기
 		{
 			return 2;
 		}
-		else if (userInput == 68) //F10 : 메인메뉴
+		else if (userInput == F10) //F10 : 메인메뉴
 		{
 			return -1;
 		}
@@ -141,27 +141,27 @@ int functionKeyInput(void)
 	{
 		userInput = getch();
 
-		if (userInput == 59) //F1 : 회원보기
+		if (userInput == F1) //F1 : 회원보기
 		{
 			return 0;
 		}
-		else if (userInput == 60) //F2 : 회원등록
+		else if (userInput == F2) //F2 : 회원등록
 		{
 			return 1;
 		}
-		else if (userInput == 61) //F3 : 회원삭제
+		else if (userInput == F3) //F3 : 회원삭제
 		{
 			return 6;
 		}
-		else if (userInput == 62) //F4 : 회원정보수정
+		else if (userInput == F4) //F4 : 회원정보수정
 		{
 			return 7;
 		}
-		else if (userInput == 63) //F5 : 회원검색
+		else if (userInput == F5) //F5 : 회원검색
 		{
 			return 2;
 		}
-		else if (userInput == 68) //F10 : 메인메뉴
+		else if (userInput == F10) //F10 : 메인메뉴
 		{
 			return -1;
 		}

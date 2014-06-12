@@ -397,6 +397,7 @@ int saveData(rootPointer * RP, member * leafNull)
 	char forCount[basicStringSize];
 	char anyInput;
 	int count = 0;
+	system("cls");
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	fp = fopen("data.txt", "wt");
 	fseek(fp, 0, SEEK_SET);
@@ -420,8 +421,8 @@ int saveData(rootPointer * RP, member * leafNull)
 	printf("Saving has successfully done!\n");
 	centerJustIndent(21, hConsole);
 	printf("Total member : %d명\n\n", count);
-	centerJustIndent(35, hConsole);
-	printf("Press anykey to go to MainMenu....\n"/*, count*/);
+	centerJustIndent(17, hConsole);
+	printf("Press anykey....\n\n\n\n\n\n\n"/*, count*/);
 	anyInput = getch();
 	if (anyInput)
 	{
@@ -480,7 +481,7 @@ int credit(void)
 
 /* 9. 종료하기 */
 
-int askSave()
+int askSave(rootPointer * RP, member * leafNull)
 {
 	HANDLE hConsole;
 	int userInput = 0;
@@ -500,21 +501,26 @@ int askSave()
 	while (1)
 	{
 		fflush(stdin);
+
 		userInput = getch();
-		if (userInput == 27) {
-			userInput =9;
-			break;
+		if (userInput == ESC) {
+			system("cls");
+			printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+			centerJustIndent(strlen("BYE BYE!!!"), hConsole);
+			printf("BYE BYE!!!");
+			printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+			return zero;
 		}
-		else if (userInput == 13) {
-			userInput = 5;
-			break;
+		else if (userInput == enter) {
+			saveData(RP, leafNull);
+			return zero;
 		}
 		else{
 			printf("\a");
 			continue;
 		}
 	}
-	return userInput;
+	
 }
 
 /* 0. 메인 함수 */
