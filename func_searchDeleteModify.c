@@ -346,24 +346,63 @@ int searchUI(int upOrDown)
 }
 
 member* searchPhone(char* phone, member* compare, member* leafNull)
-{
-	if (compare == leafNull)
+{	
+	int strcmpRemoveDashResult = strcmpRemoveDash(phone, compare->phone);
+	member * result = NULL;
+	if (compare->left != leafNull)
 	{
-		return leafNull;
+		result =  searchPhone(phone, compare->left, leafNull);
+		if (result) return result;
 	}
 
-	if (strcmp(phone, compare->phone)<0)
-	{
-		return searchPhone(phone, compare->left, leafNull);
-	}
-	else if (strcmp(phone, compare->phone)>0)
-	{
-		return searchPhone(phone, compare->right, leafNull);
-	}
-	else
-	{
+	if (strcmpRemoveDashResult == 0)
 		return compare;
+
+	if (compare->right != leafNull)
+	{
+		result = searchPhone(phone, compare->right, leafNull);
+		if (result) return result;
 	}
+	return NULL;
+}
+
+int  strcmpRemoveDash(char * source, char * compare)
+{
+	char sourceWithNoDash[basicStringSize];
+	char compareWithNoDash[basicStringSize];
+	int i = 0;
+
+	for (; *source != '\0'; i++)
+	{
+		if (*source == '-')
+		{
+			i--;
+			*source++;
+		}
+		else
+		{
+			sourceWithNoDash[i] = *source;
+			*source++;
+		}	
+	}
+	sourceWithNoDash[i] = '\0';
+	i = 0;
+	for (; *compare != '\0'; i++)
+	{
+		if (*compare == '-')
+		{
+			i--;
+			*compare++;
+		}
+		else
+		{
+			compareWithNoDash[i] = *compare;
+			*compare++;
+		}
+	}
+	compareWithNoDash[i] = '\0';
+
+	return strcmp(sourceWithNoDash, compareWithNoDash);
 }
 
 

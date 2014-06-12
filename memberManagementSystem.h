@@ -87,7 +87,8 @@ void nodeCpy(member *, member *);
 void showMember(member* searchPerson);
 member* searchName(char*, member *, member *);
 member* searchId(int, member *, member *);
-member* searchPhone(char* phone, member* compare, member* leafNull);
+member* searchPhone(char* , member* , member* );
+int  strcmpRemoveDash(char *, char *);
 
 int selectSearch(rootPointer*, member *);
 int selectModify(member*, rootPointer*, member*);
