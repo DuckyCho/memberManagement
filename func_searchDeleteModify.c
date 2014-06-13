@@ -54,6 +54,7 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 {
 	HANDLE hConsole;
 	member* searchPerson = addNode();
+	//member * searchResultSameName[basicStringSize] = { NULL, };
 	int userInput = -1;
 	char * upperDeco = "∞式式式式式式式式式式式式式式式式式式式式式式式式式式式式式∞";
 	char name[32];
@@ -98,6 +99,7 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	switch (userPick){
 	case(0):
 		searchPerson = searchName(name, RP->rootNodeN, leafNull);
+		//sameNameCheck(searchPerson, leafNull, searchResultSameName);
 		break;
 	case(1):
 		searchPerson = searchId(idInput, RP->rootNode, leafNull);
@@ -149,7 +151,15 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	}
 	return -1;
 }
+/*
+void sameNameCheck(member * searchPerson, member * leafNull, member ** searchResultSameName)
+if (findLeftSuccessor(searchPerson, leafNull)->name == searchPerson->name)
+{
 
+}
+
+findRightSuccessor(searchPerson, leafNull);
+*/
 void nodeCpy(member * original, member * destination)
 {
 	destination->id = original->id;

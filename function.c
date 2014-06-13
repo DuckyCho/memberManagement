@@ -513,7 +513,12 @@ int askSave(rootPointer * RP, member * leafNull)
 			return zero;
 		}
 		else if (userInput == enter) {
-			saveData(RP, leafNull);
+			saveData(RP, leafNull);;
+			system("cls");
+			printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+			centerJustIndent(strlen("BYE BYE!!!"), hConsole);
+			printf("BYE BYE!!!");
+			printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 			return zero;
 		}
 		else{
