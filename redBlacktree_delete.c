@@ -41,7 +41,6 @@ member * findLeftSuccessor(member * node, member *leafNull)
 	else
 		findLeftSuccessor(node->right, leafNull);
 
-	return NULL;
 }
 
 member * findRightSuccessor(member * node, member *leafNull)
@@ -51,10 +50,6 @@ member * findRightSuccessor(member * node, member *leafNull)
 
 	else
 		findRightSuccessor(node->left, leafNull);
-
-
-	return NULL;
-
 }
 
 void replaceNode(member * node, rootPointer * RP, member * leafNull)
