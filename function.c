@@ -153,7 +153,6 @@ index * readTree(member * node, member *leafNull, void(*writeDataToTxt)(member *
 		{
 			readTree(node->right, leafNull, writeDataToTxt, idx);
 		}
-		return NULL;
 
 	}
 

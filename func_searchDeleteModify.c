@@ -373,7 +373,7 @@ member* searchPhone(char* phone, member* compare, member* leafNull)
 		result = searchPhone(phone, compare->right, leafNull);
 		if (result) return result;
 	}
-	return NULL;
+
 }
 
 int  strcmpRemoveDash(char * source, char * compare)
