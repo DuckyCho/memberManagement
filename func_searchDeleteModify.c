@@ -127,7 +127,7 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	}
 
 	
-	if (searchResultSameName)
+	if (searchResultSameName[0] != NULL)
 	{
 		showSameMember(searchPerson,0);
 		for (; searchResultSameName[i] != NULL; i++)
@@ -162,14 +162,16 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 		userInput = selectSearch(RP, leafNull);
 		return userInput;
 	case (6) : //F3 : 회원삭제
-		if (searchResultSameName)
+		if (searchResultSameName[0] != NULL)
 		{
 			while (1){
-			centerJustIndent(strlen(selectOneToDelete), hConsole);
-			SetConsoleTextAttribute(hConsole, 252);
-			printf("%s", selectOneToDelete);
-			scanf("%d", &userSelect);
-			fflush(stdin);
+				centerJustIndent(strlen(selectOneToDelete), hConsole);
+				SetConsoleTextAttribute(hConsole, 252);
+				printf("%s", selectOneToDelete);
+				scanf("%d", &userSelect);
+				fflush(stdin);
+
+
 				if (userSelect == 0) { break; }
 				else if (userSelect >= 1 && userSelect <= i){
 					searchPerson = searchResultSameName[userSelect - 1];
@@ -181,39 +183,50 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 					continue;
 				}
 			}
-			for (int j = 0; searchResultSameName[j] != NULL;j++)
-			{
-				searchResultSameName[j] = NULL;
-			}
-			SetConsoleTextAttribute(hConsole, 13);
 		}
+		if (searchResultSameName[0] != NULL)
+		{
+			for (int j = 0; searchResultSameName[j] != NULL; j++)
+					{
+						searchResultSameName[j] = NULL;
+					}
+
+				SetConsoleTextAttribute(hConsole, 13);
+		}
+
 		userInput = deleteUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
 	{
-		while (1){
-		centerJustIndent(strlen(selectOneToModify), hConsole);
-		SetConsoleTextAttribute(hConsole, 252);
-		printf("%s", selectOneToModify);
-		scanf("%d",&userSelect);
-		fflush(stdin);
-		
-			if (userSelect == 0) { break; }
-			else if (1 <= userSelect && userSelect <= i){
-				searchPerson = searchResultSameName[userSelect - 1];
-				break;
-			}
-			else{
-				centerJustIndent(strlen("잘못된 번호입니다. 다시입력하세요!"), hConsole);
-				printf("잘못된 번호입니다. 다시입력하세요!\n");
-				continue;
-			}
-		}
-		for (int j = 0; searchResultSameName[j] != NULL; j++)
+		if (searchResultSameName[0] != NULL)
 		{
-			searchResultSameName[j] = NULL;
+			while (1){
+				centerJustIndent(strlen(selectOneToModify), hConsole);
+				SetConsoleTextAttribute(hConsole, 252);
+				printf("%s", selectOneToModify);
+				scanf("%d", &userSelect);
+				fflush(stdin);
+
+				if (userSelect == 0) { break; }
+				else if (1 <= userSelect && userSelect <= i){
+					searchPerson = searchResultSameName[userSelect - 1];
+					break;
+				}
+				else{
+					centerJustIndent(strlen("잘못된 번호입니다. 다시입력하세요!"), hConsole);
+					printf("잘못된 번호입니다. 다시입력하세요!\n");
+					continue;
+				}
+			}
+			if (searchResultSameName[0] != NULL)
+			{
+				for (int j = 0; searchResultSameName[j] != NULL; j++)
+				{
+					searchResultSameName[j] = NULL;
+				}
+				SetConsoleTextAttribute(hConsole, 13);
+			}
 		}
-		SetConsoleTextAttribute(hConsole, 13);
 	}
 		userInput = modify(searchPerson, RP, leafNull);
 		return userInput;
@@ -227,7 +240,10 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 int sameNameCheck(member * searchPerson, member * leafNull, member ** searchResultSameName, int i)
 {
 	
-	if (!searchPerson){}
+	if (searchPerson == leafNull)
+	{
+		return 0;
+	}
 	else
 	{
 		if (strcmp(searchPerson->left->name,searchPerson->name) == 0)
