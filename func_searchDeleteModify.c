@@ -351,7 +351,7 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 
 	printf("\n");
 	centerJustIndent(60, hConsole);
-	printf("data has successfully changed!!\n\n");
+	printf("data has been successfully changed!!\n\n");
 
 	showMember(searchPerson);
 
