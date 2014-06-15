@@ -112,7 +112,7 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 		searchPerson = searchPhone(phone, RP->rootNode, leafNull);
 	}
 	
-	if (searchPerson == leafNull) //회원검색했을 때 결과가 없는경우
+	if (searchPerson == leafNull || searchPerson == NULL) //회원검색했을 때 결과가 없는경우
 	{
 		centerJustIndent(40, hConsole);
 		SetConsoleTextAttribute(hConsole, 14);
@@ -478,6 +478,8 @@ member* searchPhone(char* phone, member* compare, member* leafNull)
 		if (result) return result;
 	}
 
+	if (result == NULL)
+		return NULL;
 }
 
 int  strcmpRemoveDash(char * source, char * compare)
