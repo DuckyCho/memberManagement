@@ -95,6 +95,7 @@ int deleteUI(member*, rootPointer *, member *);
 
 void nodeCpy(member *, member *);
 void showMember(member* searchPerson);
+void showSameMember(member*, int );
 member* searchName(char*, member *, member *);
 member* searchId(int, member *, member *);
 member* searchPhone(char* , member* , member* );
@@ -106,6 +107,7 @@ int searchUI(int);
 int modifyUI(int, member*);
 int find(rootPointer* , member * , int );
 int modify(member*, rootPointer*, member*);
+int sameNameCheck(member * , member * , member ** ,int);
 
 /* 6. 저장하기 */
 int saveData(rootPointer *, member *);

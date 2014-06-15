@@ -54,12 +54,16 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 {
 	HANDLE hConsole;
 	member* searchPerson = addNode();
-	//member * searchResultSameName[basicStringSize] = { NULL, };
+	member * searchResultSameName[basicStringSize] = { NULL, };
 	int userInput = -1;
+	int i = 0;
 	char * upperDeco = "○─────────────────────────────○";
 	char name[32];
 	char phone[32];
 	int idInput = 0;
+	char * selectOneToDelete = "삭제할 회원을 선택해주세요 : ";
+	char * selectOneToModify = "수정할 회원을 선택해주세요 : ";
+	int userSelect = 0;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	if (GetAsyncKeyState(VK_UP)) Sleep(100);
@@ -99,7 +103,7 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	switch (userPick){
 	case(0):
 		searchPerson = searchName(name, RP->rootNodeN, leafNull);
-		//sameNameCheck(searchPerson, leafNull, searchResultSameName);
+		sameNameCheck(searchPerson, leafNull, searchResultSameName,i);
 		break;
 	case(1):
 		searchPerson = searchId(idInput, RP->rootNode, leafNull);
@@ -122,7 +126,24 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 		}
 	}
 
-	showMember(searchPerson);
+	
+	if (searchResultSameName)
+	{
+		showSameMember(searchPerson,0);
+		for (; searchResultSameName[i] != NULL; i++)
+		{
+			printf("\n");
+			showSameMember(searchResultSameName[i],i+1);
+		}
+	}
+
+	else
+	{
+		showMember(searchPerson);
+	}
+
+	
+
 
 	fflush(stdin);
 	userInput = functionKeyInput();
@@ -141,9 +162,52 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 		userInput = selectSearch(RP, leafNull);
 		return userInput;
 	case (6) : //F3 : 회원삭제
+		if (searchResultSameName)
+		{
+			centerJustIndent(strlen(selectOneToDelete), hConsole);
+			SetConsoleTextAttribute(hConsole, 252);
+			printf("%s", selectOneToDelete);
+			scanf("%d", &userSelect);
+			fflush(stdin);
+			while (1){
+				if (userSelect == 0) { break; }
+				else if (userSelect >= 1 && userSelect <= i){
+					searchPerson = searchResultSameName[userSelect - 1];
+					break;
+				}
+				else
+					continue;
+			}
+			for (int j = 0; searchResultSameName[j] != NULL;j++)
+			{
+				searchResultSameName[j] = NULL;
+			}
+			SetConsoleTextAttribute(hConsole, 13);
+		}
 		userInput = deleteUI(searchPerson, RP, leafNull);
 		return userInput;
 	case (7) : //F4 : 회원정보수정
+	{
+		centerJustIndent(strlen(selectOneToModify), hConsole);
+		SetConsoleTextAttribute(hConsole, 252);
+		printf("%s", selectOneToModify);
+		scanf("%d",&userSelect);
+		fflush(stdin);
+		while (1){
+			if (userSelect == 0) { break; }
+			else if (1 <= userSelect && userSelect <= i){
+				searchPerson = searchResultSameName[userSelect - 1];
+				break;
+			}
+			else
+				continue;
+		}
+		for (int j = 0; searchResultSameName[j] != NULL; j++)
+		{
+			searchResultSameName[j] = NULL;
+		}
+		SetConsoleTextAttribute(hConsole, 13);
+	}
 		userInput = modify(searchPerson, RP, leafNull);
 		return userInput;
 	case (-1) : //F10 : 메인메뉴
@@ -151,15 +215,32 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	}
 	return -1;
 }
-/*
-void sameNameCheck(member * searchPerson, member * leafNull, member ** searchResultSameName)
-if (findLeftSuccessor(searchPerson, leafNull)->name == searchPerson->name)
-{
 
+
+int sameNameCheck(member * searchPerson, member * leafNull, member ** searchResultSameName, int i)
+{
+	
+	if (!searchPerson){}
+	else
+	{
+		if (strcmp(searchPerson->left->name,searchPerson->name) == 0)
+		{
+			searchResultSameName[i] = searchPerson->left;
+			i++;
+			i = sameNameCheck(searchPerson->left, leafNull, searchResultSameName,i);
+		}
+
+		if (strcmp(searchPerson->right->name,searchPerson->name) == 0)
+		{
+			searchResultSameName[i] = searchPerson->right;
+			i++;
+			i = sameNameCheck(searchPerson->right, leafNull, searchResultSameName,i);
+		}
+		return i;
+	}
 }
 
-findRightSuccessor(searchPerson, leafNull);
-*/
+
 void nodeCpy(member * original, member * destination)
 {
 	destination->id = original->id;
@@ -215,7 +296,7 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 			replaceNode(searchPerson, RP, leafNull);
 			tmp->otherTreePointer = addNode();
 			tmp->otherTreePointer->treeType = nameTree;
-			tmp->otherTreePointer->otherTreePointer = searchPerson;
+			tmp->otherTreePointer->otherTreePointer = tmp;
 			nodeCpy(tmp, tmp->otherTreePointer);
 			tmp->otherTreePointer->left = leafNull;
 			tmp->otherTreePointer->right = leafNull;
@@ -583,6 +664,21 @@ void showMember(member* searchPerson)
 	centerJustIndent(62, hConsole);
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("│%-9d%-9s%-25s\t%-13s│\n", searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("%s", upperDeco);
+}
+
+
+void showSameMember(member* searchPerson, int i )
+{
+	char * upperDeco = "───────────────────────────────";
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	centerJustIndent(62, hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("%d. %-9d%-9s%-25s\t%-13s\n",i, searchPerson->id, searchPerson->name, searchPerson->address, searchPerson->phone);
 	centerJustIndent(62, hConsole);
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("%s", upperDeco);
