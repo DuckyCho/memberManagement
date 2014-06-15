@@ -323,6 +323,7 @@ int modify(member* searchPerson, rootPointer* RP, member* leafNull)
 			nodeCpy(tmp, tmp->otherTreePointer);
 			tmp->otherTreePointer->left = leafNull;
 			tmp->otherTreePointer->right = leafNull;
+			searchPerson = tmp->otherTreePointer;
 			attachTreeN(tmp->otherTreePointer, RP, leafNull);
 			redBlackTreeN(tmp->otherTreePointer, RP, leafNull);
 		}
