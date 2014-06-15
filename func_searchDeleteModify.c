@@ -164,19 +164,22 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 	case (6) : //F3 : 회원삭제
 		if (searchResultSameName)
 		{
+			while (1){
 			centerJustIndent(strlen(selectOneToDelete), hConsole);
 			SetConsoleTextAttribute(hConsole, 252);
 			printf("%s", selectOneToDelete);
 			scanf("%d", &userSelect);
 			fflush(stdin);
-			while (1){
 				if (userSelect == 0) { break; }
 				else if (userSelect >= 1 && userSelect <= i){
 					searchPerson = searchResultSameName[userSelect - 1];
 					break;
 				}
-				else
+				else{
+					centerJustIndent(strlen("잘못된 번호입니다. 다시입력하세요!"), hConsole);
+					printf("잘못된 번호입니다. 다시입력하세요!\n");
 					continue;
+				}
 			}
 			for (int j = 0; searchResultSameName[j] != NULL;j++)
 			{
@@ -188,19 +191,23 @@ int find(rootPointer* RP, member * leafNull, int userPick)
 		return userInput;
 	case (7) : //F4 : 회원정보수정
 	{
+		while (1){
 		centerJustIndent(strlen(selectOneToModify), hConsole);
 		SetConsoleTextAttribute(hConsole, 252);
 		printf("%s", selectOneToModify);
 		scanf("%d",&userSelect);
 		fflush(stdin);
-		while (1){
+		
 			if (userSelect == 0) { break; }
 			else if (1 <= userSelect && userSelect <= i){
 				searchPerson = searchResultSameName[userSelect - 1];
 				break;
 			}
-			else
+			else{
+				centerJustIndent(strlen("잘못된 번호입니다. 다시입력하세요!"), hConsole);
+				printf("잘못된 번호입니다. 다시입력하세요!\n");
 				continue;
+			}
 		}
 		for (int j = 0; searchResultSameName[j] != NULL; j++)
 		{

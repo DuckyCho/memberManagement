@@ -12,6 +12,7 @@ int printList(member * node, member * leafNull)
 	int count = 0;	
 	idxHead * head = (idxHead *)malloc(sizeof(idxHead) * 1);
 	index * key;
+	index * tmp;
 	index * keyArr[basicStringSize] = { 0, };
 	
 	head->indexHead = addIdx();
@@ -40,10 +41,49 @@ int printList(member * node, member * leafNull)
 
 		switch (userInput){
 		case(mainMenu) : //메인메뉴
+			if (head->indexHead)
+			{
+			tmp = key->next->next;
+				do{
+					if (tmp)
+						free(tmp->prev);
+					tmp = tmp->next;
+				} while (tmp != key);
+				if (tmp)
+					free(tmp);
+				if (head)
+					free(head);
+			}
 			return userInput;
 		case(printMemberListInIdOrder) : //id순으로 정렬 회원보기
+			if (head->indexHead)
+			{
+			tmp = key->next->next;
+			do{
+				if (tmp)
+					free(tmp->prev);
+				tmp = tmp->next;
+			} while (tmp != key);
+			if (tmp)
+				free(tmp);
+			if (head)
+				free(head);
+			}
 			return userInput;
 		case(searchMember) : //회원검색
+			if (head->indexHead)
+			{
+			tmp = key->next->next;
+			do{
+				if (tmp)
+					free(tmp->prev);
+				tmp = tmp->next;
+			} while (tmp != key);
+			if (tmp)
+				free(tmp);
+			if (head)
+				free(head);
+			}
 			return userInput;
 		case(3) : //이전 회원 리스트보기
 			if (count-1 >= 0){
@@ -64,6 +104,19 @@ int printList(member * node, member * leafNull)
 				break;
 			}
 		case(printMemberListInNameOrder) : //이름순으로 정렬된 회원 보기
+			if (head->indexHead)
+			{
+			tmp = key->next->next;
+			do{
+				if (tmp)
+					free(tmp->prev);
+				tmp = tmp->next;
+			} while (tmp != key);
+			if (tmp)
+				free(tmp);
+			if (head)
+				free(head);
+			}
 			return userInput;
 		}
 	}
